@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "it reflects me(mirror)",
   "main": "index.js",
-    "dependencies": {
+  "dependencies": {
     "body-parser": "^1.13.3",
+    "bower": "^1.6.5",
     "express": "~4.13.3",
     "express-handlebars": "~2.0.1",
     "express-myconnection": "^1.0.4",
@@ -17,12 +18,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Oyamasiphula/SeedApplication.git"
+    "url": "git+https://github.com/Oyamasiphula/SeedApplication.git"
   },
   "author": "o.siphula",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Oyamasiphula/SeedApplication/issues"
   },
-  "homepage": "https://github.com/Oyamasiphula/SeedApplication"
+  "homepage": "https://github.com/Oyamasiphula/SeedApplication",
+  "devDependencies": {
+    "mocha": "^2.3.4"
+  }
 }
