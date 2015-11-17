@@ -1,0 +1,106 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:700);
+header {
+  min-width: 750px;
+}
+
+nav > ul {
+  margin-bottom: 100px;
+  height: 80px;
+  text-align: center;
+  background-color: #222;
+}
+nav > ul li {
+  display: inline-block;
+  margin: 0 20px;
+  height: 35px;
+  text-transform: uppercase;
+  position: relative;
+  top: -60px;
+}
+
+nav a {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.4em;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 700;
+}
+nav a:hover:not(.logo) {
+  color: white;
+  border-bottom: 3px solid white;
+}
+nav a img {
+  height: 100px;
+  width: 100px;
+  border-radius: 150px 150px;
+  border: 5px solid #222;
+  position: relative;
+  top: 70px;
+}
+/*below is home logo design style*/
+@import url(http://fonts.googleapis.com/css?family=Roboto+Condensed:700);
+.container {
+  font-family: 'Roboto Condensed', sans-serif;
+  background-size: cover;
+}
+.items {
+  margin: 0 auto;
+  width: 800px;
+}
+.row + .row {
+  margin-top: -72px;
+}
+.row:nth-child(odd) {
+  margin-left: 128px;
+}
+.hexagon {
+  display: inline-block;
+  position: relative;
+  width: 250px;
+  height: 144.34px;
+ background-color: rgb(1, 19, 25);
+  color: #80bd01;
+  margin: 72.17px 0;
+}
+.hexagon:before,
+.hexagon:after {
+  content: "";
+  position: absolute;
+  width: 0;
+  border-left: 125px solid transparent;
+  border-right: 125px solid transparent;
+}
+.hexagon:before {
+  bottom: 100%;
+  border-bottom: 72.17px solid rgba(0, 0, 0, 0.7);
+}
+.hexagon:after {
+  top: 100%;
+  border-top: 72.17px solid rgba(0, 0, 0, 0.7);
+}
+.secondary {
+  background: #80bd01;
+  color: #FFF;
+}
+.secondary:before {
+  border-bottom: 72.17px solid #80bd01;
+}
+.secondary:after {
+  border-top: 72.17px solid #80bd01;
+}
+.hexa-container {
+  position: absolute;
+  width: 230px;
+  padding: 0 10px;
+  text-align: center;
+}
+.hexa-header {
+  font-size: 2.5em;
+}
+.hexa-header h3 {
+  margin: 0;
+  border-bottom: 1px solid #80bd01;
+}
+.secondary h3 .hexa-header {
+  border-bottom: 1px solid #FFF;
+}

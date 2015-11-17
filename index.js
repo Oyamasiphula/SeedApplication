@@ -13,8 +13,9 @@ var dbOptions = {
       user: 'root',
       password: 'codex',
       port: 3306,
-      database: 'OS_issues_Logs'
+      database: 'OS_issues_Log'
 };
+// at codex machine database nama is OS_issues_Logs;
 
 //setup template handlebars as the template engine
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));

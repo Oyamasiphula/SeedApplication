@@ -4,8 +4,7 @@ CREATE TABLE category_td (
   PRIMARY KEY (`category_id`)
 );
 
-
-Table structure for table `issues`
+-- Table structure for table `issues`
 --
 CREATE TABLE issues (
   `issue_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -22,7 +21,7 @@ ALTER TABLE  `issues` ADD FOREIGN KEY (  `category_id` ) REFERENCES  `OS_issues_
 `category_id`
 ) ON DELETE RESTRICT ON UPDATE RESTRICT ;
 
-Dumping data for table `category`
+-- Dumping data for table `category`
 
 INSERT INTO category_td (category) VALUES ("Languages");
 INSERT INTO category_td (category) VALUES ("Installations");
