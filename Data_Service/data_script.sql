@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS `category_td` (
   `category_id` int(11) NOT NULL AUTO_INCREMENT,
-  `category_name` text NOT NULL,
+  `category` text NOT NULL,
   PRIMARY KEY (`category_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
@@ -8,52 +8,39 @@ CREATE TABLE IF NOT EXISTS `category_td` (
 -- Dumping data for table `category`
 --
 
-INSERT INTO `category_td` (`category_id`, `category_name`) VALUES
-(1, 'shortLife'),
-(2, 'cannedGoods'),
-(3, 'cooldrinks'),
-(4, 'longLife'),
-(5, 'toiletries'),
-(6, 'fruit'),
-(7, 'sweets'),
-(8, 'gifts');
-
+INSERT INTO `category_td` (`category_id`, `category`) VALUES
+(1, 'Languages'),
+(2, 'Installations'),
+(3, 'mySql_Database'),
+(4, 'Terminal_commands'),
+(5, 'Libraries'),
+(6, 'github'),
+(7, 'Other'),
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `product`
 --
 
-CREATE TABLE IF NOT EXISTS `product` (
-  `prod_id` int(11) NOT NULL AUTO_INCREMENT,
-  `prod_name` text NOT NULL,
+CREATE TABLE IF NOT EXISTS `issues` (
+  `issue_id` int(11) NOT NULL AUTO_INCREMENT,
+  `description` text NOT NULL,
+  `Solution` text NOT NULL,
+  `Log` text NOT NULL,
   `category_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`prod_id`),
+  PRIMARY KEY (`issue_id`),
   KEY `category_id` (`category_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
 
 --
--- Dumping data for table `product`
+-- Dumping data for table `issues`
 --
 
-INSERT INTO `product` (`prod_id`, `prod_name`, `category_id`) VALUES
-(1, 'Milk 1l', 1),
-(2, 'Imasi', 1),
-(3, 'Bread', 1),
-(4, 'Chakalaka Can', 2),
-(5, 'Gold Dish Vegetable Curry Can', 2),
-(6, 'Fanta 500ml', 3),
-(7, 'Coke 500ml', 3),
-(8, 'Cream Soda 500ml', 3),
-(9, 'Iwisa Pap 5kg', 4),
-(10, 'Top Class Soy Mince', 4),
-(11, 'Shampoo 1 litre', 5),
-(12, 'Soap Bar', 5),
-(13, 'Bananas - loose', 6),
-(14, 'Apples - loose', 6),
-(15, 'Mixed Sweets 5s', 8),
-(16, 'Heart Chocolates', 8),
-(17, 'Rose (plastic)', 7),
-(18, 'Valentine Cards', 7);
+INSERT INTO `issues` (`issue_id`,'Category_Specification', `description`,`Solution`,`Log`,`category_id`) VALUES
+(1,'JavaScript', 'I"m struggling to create a search using jquery ','i forgot to put # tag on the class reference','error message', 1),
+(2,'Bower package', 'I"m struggling to install npm packages (bower)','changed package.json file github url link to bower package like','Could not read from remote repository.
+Please make sure you have the correct access rights',5),
+(3,'JavaScript','I"m struggling to use post and get method on the index.js file','Route.post() requires callback functions but got a [object Undefined]
+',1),
 
--- --------------------------------------------------------
+(4,'Boostrap Library','I"m struggling make columns','added .col-md-8 on to my table class','', 2)

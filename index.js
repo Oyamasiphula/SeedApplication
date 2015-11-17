@@ -3,7 +3,8 @@ var express = require('express'),
 	mysql = require('mysql'),
 	myConnection = require('express-myconnection'),
 	session = require('express-session'),
-	bodyParser = require('body-parser');
+	bodyParser = require('body-parser'),
+  issue = require('./routes/issue');
 
 var app = express();
 
@@ -11,8 +12,8 @@ var dbOptions = {
       host: 'localhost',
       user: 'root',
       password: 'codex',
-      port: '#',
-      database: 'OS_info'
+      port: 2000,
+      database: 'OS_Log_db'
 };
 
 //setup template handlebars as the template engine
@@ -32,6 +33,8 @@ app.get("/", function (req,res) {
     res.render("home")
 })
 
+app.post('issues',issue.show)
+app.post('issues',issue.add)
 
 //start everything up
 var port = process.env.khuluma_port ||2010;
