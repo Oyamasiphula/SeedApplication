@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <table class="table">
+  <tr class="info">
+        <th>Category Specification</th>
+        <th>description</th>
+  </tr>
+{{#results}}
+  <tr>
+    
+        <td>{{Category_Specification}}</td>
+        <td>{{description}}</td>
+  </tr>
+        {{/results}}
+      </table>
+    </div>
+  <div class="col-md-4">
+    <!-- Text input-->
+      <form class="form-horizontal" action="/issues" method="POST">
+        <fieldset>
+      <!-- Form Name -->
+    <legend><strong>Log new problem</strong></legend>
+<!-- Text input-->
+  <div class="control-group">
+    <label class="control-label" for="Category_Specification">Category_Specification</label>
+      <div class="controls">
+        <input id="Category_Specification" name="Category_Specification_name" type="text" placeholder="Category_Specification" class="input-xlarge" required>
+        </div>
+      </div>
+    <!-- Text input-->
+  <div class="control-group">
+    <label class="control-label" for="textinput">description</label>
+      <div class="controls">
+        <input id="textinput" name="description" type="enum" placeholder="description" class="input-xlarge" required>
+      </div>
+    </div>
+  <!-- Text input-->
+    <div class="control-group">
+      <label class="control-label" for="textinput">Solution</label>
+          <div class="controls">
+         <input id="textinput" name="Solution" type="text" placeholder="Problem" class="input-xlarge" required>
+      </div>
+    </div>
+  <div class="controls">
+    <button id="button1id" name="button1id" class="btn btn-success">SUBMIT</button> 
+      <button id="button2id" name="button2id" class="btn btn-danger">Cancel</button>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>

@@ -1,12 +1,77 @@
 <!DOCTYPE html>
 <html>
-		<head>
+		<header>
+
 			<title>Seed Application</title>
+
+		<link rel="stylesheet" type="text/css" href="/css/seedStyle.css">
+		<!-- <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap.css"> -->
+		<script src="/bower_components/jquery/dist/jquery.min.js"></script>
+		<div class="row">
+		 <nav >
+		    <ul>
+		      <li><a href="/">Home</a></li>
+		      <li><a href="#">About</a></li>
+		      <li><a href="#" class="logo">
+        <img src="https://lh3.googleusercontent.com/-XwlxhaHhNz8/VhkuE3kKEsI/AAAAAAAAAK0/H2ZCthdpWuU/w140-h140-p/IMG_0446.JPG">
+		      </a></li>
+		      <li><a href="/issues">Developmnet</a></li>
+		      <li><a href="#">Contact</a></li>
+		    </ul>
+		  </nav>
+		  	</div>
+	<!-- 	   <h1>Developement KiT</h1>
+  <h2>Take care of all the errors and learn from them</h2> -->
 		</head>
 			<body class="bg" background='/img/LA1EMzq.png' >
 			{{{body}}}
 			</body>
-	<footer>
+	<footer >
 	
 	</footer>
 </html>
+
+
+<style type="text/css">
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:700);
+header {
+  min-width: 750px;
+}
+
+nav > ul {
+  margin: 0;
+  height: 80px;
+  text-align: center;
+  background-color: #222;
+}
+nav > ul li {
+  display: inline-block;
+  margin: 0 20px;
+  height: 35px;
+  text-transform: uppercase;
+  position: relative;
+  top: -60px;
+}
+
+nav a {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.4em;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 700;
+}
+nav a:hover:not(.logo) {
+  color: white;
+  border-bottom: 3px solid white;
+}
+nav a img {
+  height: 100px;
+  width: 100px;
+  border-radius: 150px 150px;
+  border: 5px solid #222;
+  position: relative;
+  top: 70px;
+}
+
+/**{padding:0;margin:0;}*/
+</style>

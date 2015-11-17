@@ -1,46 +1,42 @@
-CREATE TABLE IF NOT EXISTS `category_td` (
+CREATE TABLE category_td (
   `category_id` int(11) NOT NULL AUTO_INCREMENT,
   `category` text NOT NULL,
   PRIMARY KEY (`category_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+);
 
---
--- Dumping data for table `category`
---
 
-INSERT INTO `category_td` (`category_id`, `category`) VALUES
-(1, 'Languages'),
-(2, 'Installations'),
-(3, 'mySql_Database'),
-(4, 'Terminal_commands'),
-(5, 'Libraries'),
-(6, 'github'),
-(7, 'Other'),
--- --------------------------------------------------------
-
+Table structure for table `issues`
 --
--- Table structure for table `product`
---
-
-CREATE TABLE IF NOT EXISTS `issues` (
+CREATE TABLE issues (
   `issue_id` int(11) NOT NULL AUTO_INCREMENT,
-  `description` text NOT NULL,
-  `Solution` text NOT NULL,
-  `Log` text NOT NULL,
+  `Category_Specification` varchar(20) NOT NULL,
+  `description` varchar(200) NOT NULL,
+  `Solution` varchar(300) NOT NULL,
+  `error_message` varchar(500) NOT NULL,
   `category_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`issue_id`),
   KEY `category_id` (`category_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
+);
 
---
--- Dumping data for table `issues`
---
+ALTER TABLE  `issues` ADD FOREIGN KEY (  `category_id` ) REFERENCES  `OS_issues_Logs`.`category_td` (
+`category_id`
+) ON DELETE RESTRICT ON UPDATE RESTRICT ;
 
-INSERT INTO `issues` (`issue_id`,'Category_Specification', `description`,`Solution`,`Log`,`category_id`) VALUES
-(1,'JavaScript', 'I"m struggling to create a search using jquery ','i forgot to put # tag on the class reference','error message', 1),
-(2,'Bower package', 'I"m struggling to install npm packages (bower)','changed package.json file github url link to bower package like','Could not read from remote repository.
-Please make sure you have the correct access rights',5),
-(3,'JavaScript','I"m struggling to use post and get method on the index.js file','Route.post() requires callback functions but got a [object Undefined]
-',1),
+Dumping data for table `category`
 
-(4,'Boostrap Library','I"m struggling make columns','added .col-md-8 on to my table class','', 2)
+INSERT INTO category_td (category) VALUES ("Languages");
+INSERT INTO category_td (category) VALUES ("Installations");
+INSERT INTO category_td (category) VALUES ("mySql_Database");
+INSERT INTO category_td (category) VALUES ("Terminal_commands");
+INSERT INTO category_td (category) VALUES ("Libraries");
+INSERT INTO category_td (category) VALUES ("github");
+INSERT INTO category_td (category) VALUES ("Other");
+
+
+INSERT INTO issues (Category_Specification,description,Solution,error_message,category_id) VALUES ("JavaScript","I'm struggling to create a search using jquery","i forgot to put # tag on the class reference","error message",1);
+INSERT INTO issues (Category_Specification,description,Solution,error_message,category_id) VALUES ("Bower package","I'm struggling to install npm packages (bower)","changed package.json file github url link to bower package like","Could not read from remote repository. Please make sure you have the correct access rights", 5);
+INSERT INTO issues (Category_Specification,description,Solution,error_message,category_id) VALUES ("JavaScript","I'm struggling to use post and get method on the index.js file","Route.post() requires callback functions but got a [object Undefined]",1);
+
+
+
+-- -- --------------------------------------------------------

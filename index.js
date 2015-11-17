@@ -4,7 +4,7 @@ var express = require('express'),
 	myConnection = require('express-myconnection'),
 	session = require('express-session'),
 	bodyParser = require('body-parser'),
-  issue = require('./routes/issue');
+  issues = require('./routes/issue');
 
 var app = express();
 
@@ -12,8 +12,8 @@ var dbOptions = {
       host: 'localhost',
       user: 'root',
       password: 'codex',
-      port: 2000,
-      database: 'OS_Log_db'
+      port: 3306,
+      database: 'OS_issues_Logs'
 };
 
 //setup template handlebars as the template engine
@@ -21,6 +21,7 @@ app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
 app.use(express.static(__dirname + '/public'));
+app.use('/bower_components',  express.static(__dirname + '/bower_components'));
 
 //setup middleware
 app.use(myConnection(mysql, dbOptions, 'single'));
@@ -32,9 +33,8 @@ app.use(bodyParser.json())
 app.get("/", function (req,res) {
     res.render("home")
 })
-
-app.post('issues',issue.show)
-app.post('issues',issue.add)
+app.get('/issues',issues.show)
+app.post('/issues',issues.show)
 
 //start everything up
 var port = process.env.khuluma_port ||2010;
