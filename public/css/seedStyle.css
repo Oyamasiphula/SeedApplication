@@ -8,6 +8,7 @@ nav > ul {
   height: 80px;
   text-align: center;
   background-color: #222;
+  margin-left: -131px;
 }
 nav > ul li {
   display: inline-block;
@@ -37,6 +38,18 @@ nav a img {
   position: relative;
   top: 70px;
 }
+input[type=text] {
+  margin: 10px;
+  padding: 10px;
+  font-size: 20px;
+}
+
+input[type=submit] {
+  padding: 13px;
+    border: 2px solid #000;   
+};
+
+
 /*below is home logo design style*/
 @import url(http://fonts.googleapis.com/css?family=Roboto+Condensed:700);
 .container {
@@ -104,3 +117,357 @@ nav a img {
 .secondary h3 .hexa-header {
   border-bottom: 1px solid #FFF;
 }
+
+
+/*below is table style*/
+/* = body
+------------------------*/
+/*body{
+  background:#1abc9c;
+}*/
+.description{
+ font-family: monospace;
+  text-align:center;
+  /*color:#ecf0f1;*/
+  text-shadow:0 0.1em 0.2em #008c8d;
+}
+/* = Scroll body
+------------------------*/
+::-webkit-scrollbar{
+  width:0.2em;
+}
+::-webkit-scrollbar-track{
+  background-color:#bdc3c7;
+}
+::-webkit-scrollbar-thumb{
+  background-color:#7f8c8d;
+}
+/* = table
+------------------------*/
+
+.box-table table{
+    text-align: left;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: #7f8c8d;
+    animation: responsive 5s infinite ease-in-out;
+}
+.box-table{
+  font:normal 12px/150% Arial, Helvetica, sans-serif;
+  overflow:hidden;
+  margin:0 auto;
+  display:block;
+  width:95%;
+  padding:2.5%;
+}
+.box-table table thead th{
+  background-color:#7f8c8d;
+  color:#bdc3c7;
+  text-align:center;
+  padding: 0.75em;
+  font-family: 'Vollkorn', serif;
+  font-weight: bold;
+  font-size: 1.5em;
+  height: 1.5em;
+  vertical-align: top;
+  border-left:0.25em double #95a5a6;
+
+}
+.box-table table tbody td,
+.box-table table tbody tr{
+
+    /* margin: 20px; */
+    font-family: monospace;
+    font-size: 15px;
+    color: darkslategrey;
+    border: none;
+    padding: 31px;
+}
+.box-table table tbody tr:nth-child(odd){
+  background: #ecf0f1;
+    /* color: #95a5a6; */
+    padding: 100px;
+}
+.box-table table tbody tr:nth-child(even){
+  background:#bdc3c7;
+  color:#7f8c8d;
+}
+.box-table table tbody tr a{
+  text-decoration:none;
+  color:#e67e22;
+}
+.box-table table tbody tr a:hover{
+  color:#d35400;
+}
+.box-table .user-photo{
+  background:#bdc3c7;
+}
+.box-table .user-tumb{
+  width:6em;
+  height:6em;
+  padding:0;
+  display:table-cell;
+  text-align:center;
+  margin:0 auto;
+  -webkit-border-radius:100%;
+  -moz-border-radius:100%;
+  border-radius:100%;
+}
+
+
+/* = Responsive table
+------------------------*/
+
+/* http://elvery.net/demo/responsive-tables/  */
+@media only screen and (max-width: 800px){
+  .box-table table{
+    width:100%;
+    border-collapse:collapse;
+    border-spacing:0;
+  }
+  .box-table th,
+  .box-table td{
+    margin:0;
+    vertical-align:top;
+  }
+  .box-table th{
+    text-align:left;
+  }
+  .box-table table{
+    display:block;
+    position:relative;
+    width:100%;
+  }
+  .box-table thead{
+    display:block;
+    float:left;
+  }
+  .box-table tbody{
+    display:block;
+    width:auto;
+    position:relative;
+    overflow-x:auto;
+    white-space:nowrap;
+  }
+  .box-table thead tr{
+    display:block;
+  }
+  .box-table th{
+    display:block;
+    text-align:right;
+  }
+  .box-table tbody tr{
+    display:inline-block;
+    vertical-align:top;
+  }
+  .box-table td{
+    display:block;
+    min-height:1.25em;
+    text-align:left;
+  }
+  .box-table th{
+    border-bottom:0;
+    border-left:0;
+  }
+  .box-table td{
+    border-left:0;
+    border-right:0;
+    border-bottom:0;
+  }
+}
+/* = Error
+------------------------*/
+.error_table {
+  display: block;
+  background: #E05E5E;
+  color: #D1D1D1;
+  font-family: 'Vollkorn', serif;
+  text-align: center;
+  font-size: 3em;
+  width: 90%;
+  padding: 5%;
+}
+/* = Loader
+------------------------*/
+.loading_table{
+  background:#d35400;
+  color:#ecf0f1;
+  font-family: 'Vollkorn', serif;
+  text-align: center;
+  font-size: 1em;
+  width: 0;
+  display: block;
+  overflow: hidden;
+  height: 1em;
+  padding:0.5em;
+  animation: table_loader 10s infinite ease;
+}
+@keyframes table_loader{50%{width:100%}}
+@-webkit-keyframes table_loader{50%{width:100%}}
+@-moz-keyframes table_loader{50%{width:100%}}
+@-ms-keyframes table_loader{50%{width:100%}}
+@-o-keyframes table_loader{ 50%{width:100%}}
+
+/*below is form style*/
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro);
+
+form {
+    margin-left:auto;
+    margin-right:auto;
+    height: 333px;
+    padding:30px;
+    border: 1px solid rgba(0,0,0,.2);
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    background: rgba(0, 0, 0, 0.5); 
+    -moz-box-shadow: 0 0 13px 3px rgba(0,0,0,.5);
+    -webkit-box-shadow: 0 0 13px 3px rgba(0,0,0,.5);
+    box-shadow: 0 0 13px 3px rgba(0,0,0,.5);
+    overflow: hidden; 
+}
+
+textarea{
+    background: rgba(255, 255, 255, 0.4) no-repeat scroll 16px 16px; 
+    width: 276px;
+    height: 110px;
+    border: 1px solid rgba(255,255,255,.6);
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box; 
+    display:block;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size:18px;
+    color:#fff;
+    padding-left:45px;
+    padding-right:20px;
+    padding-top:12px;
+    margin-bottom:20px;
+    overflow:hidden;
+}
+
+input {
+    width: 361px;
+    height: 33px;
+    border: 1px solid rgba(255,255,255,.4);
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box; 
+    display:block;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size:18px;
+    color:#fff;
+    padding-left:20px;
+    padding-right:20px;
+    margin-bottom:20px;
+}
+
+input[type=submit] {
+    cursor:pointer;
+}
+
+input.Category_Specification {
+    background: rgba(255, 255, 255, 0.4) url() no-repeat scroll 16px 16px; 
+    padding-left:45px;
+}
+
+input.description {
+    background: rgba(255, 255, 255, 0.4) no-repeat scroll 100px 100px;
+    padding-left:45px;
+}
+
+input.message {
+    background: rgba(255, 255, 255, 0.4) no-repeat scroll 16px 16px;
+    padding-left:45px;
+}
+
+::-webkit-input-placeholder {
+    color: #fff;
+}
+
+:-moz-placeholder{ 
+    color: #fff; 
+}
+
+::-moz-placeholder {
+    color: #fff;
+}
+
+::-ms-input-placeholder {  
+    color: #fff; 
+}
+
+input:focus, textarea:focus { 
+    background-color: rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 0 5px 1px rgba(255,255,255,.5);
+    -webkit-box-shadow: 0 0 5px 1px rgba(255,255,255,.5);
+    box-shadow: 0 0 5px 1px rgba(255,255,255,.5);
+    overflow: hidden; 
+}
+
+.btn {
+    width: 138px;
+    height: 44px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    border: 1px solid #253737;
+    background: #416b68;
+    background: -webkit-gradient(linear, left top, left bottom, from(#6da5a3), to(#416b68));
+    background: -webkit-linear-gradient(top, #6da5a3, #416b68);
+    background: -moz-linear-gradient(top, #6da5a3, #416b68);
+    background: -ms-linear-gradient(top, #6da5a3, #416b68);
+    background: -o-linear-gradient(top, #6da5a3, #416b68);
+    background-image: -ms-linear-gradient(top, #6da5a3 0%, #416b68 100%);
+    padding: 10.5px 21px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-box-shadow: rgba(255,255,255,0.1) 0 1px 0, inset rgba(255,255,255,0.7) 0 1px 0;
+    -moz-box-shadow: rgba(255,255,255,0.1) 0 1px 0, inset rgba(255,255,255,0.7) 0 1px 0;
+    box-shadow: rgba(255,255,255,0.1) 0 1px 0, inset rgba(255,255,255,0.7) 0 1px 0;
+    text-shadow: #333333 0 1px 0;
+    color: #e1e1e1;
+}
+
+.btn:hover {
+    border: 1px solid #253737;
+    text-shadow: #333333 0 1px 0;
+    background: #416b68;
+    background: -webkit-gradient(linear, left top, left bottom, from(#77b2b0), to(#416b68));
+    background: -webkit-linear-gradient(top, #77b2b0, #416b68);
+    background: -moz-linear-gradient(top, #77b2b0, #416b68);
+    background: -ms-linear-gradient(top, #77b2b0, #416b68);
+    background: -o-linear-gradient(top, #77b2b0, #416b68);
+    background-image: -ms-linear-gradient(top, #77b2b0 0%, #416b68 100%);
+    color: #fff;
+ }
+
+.btn:active {
+    margin-top:1px;
+    text-shadow: #333333 0 -1px 0;
+    border: 1px solid #253737;
+    background: #6da5a3;
+    background: -webkit-gradient(linear, left top, left bottom, from(#416b68), to(#416b68));
+    background: -webkit-linear-gradient(top, #416b68, #609391);
+    background: -moz-linear-gradient(top, #416b68, #6da5a3);
+    background: -ms-linear-gradient(top, #416b68, #6da5a3);
+    background: -o-linear-gradient(top, #416b68, #6da5a3);
+    background-image: -ms-linear-gradient(top, #416b68 0%, #6da5a3 100%);
+    color: #fff;
+    -webkit-box-shadow: rgba(255,255,255,0) 0 1px 0, inset rgba(255,255,255,0.7) 0 1px 0;
+    -moz-box-shadow: rgba(255,255,255,0) 0 1px 0, inset rgba(255,255,255,0.7) 0 1px 0;
+    box-shadow: rgba(255,255,255,0) 0 1px 0, inset rgba(255,255,255,0.7) 0 1px 0;
+   }
+
+
