@@ -17,21 +17,48 @@
 {{#results}}
   <tr>
     
-        <td>{{Category_Specification}}</td>
+        <td>{{categorise_issue}}</td>
         <td>{{description}}</td>
         <td>{{Solution}}</td>
   </tr>
         {{/results}}
 </table>    
 </div>
-  
+
+
+
+
+
+
+
+
+<h1>Add issue</h1>
+  <form action="/issues/add/" method="POST">
+    Description: <input name="issue_name" type="text">
+    <!-- [[dropdown]] -->
+          <select name="category_id">
+            {{#categories}}
+            <option value = "{{id}}">{{Category_name}}</option>
+            {{/categories}}
+          </select> 
+      <!-- [[/dropdown]] -->
+    <input type="submit">
+  </form>
+</div>
+
+
 <form  action="/issues" method="POST">
 <legend><strong>Log new problem</strong></legend>
-    <input name="Category_Specification" placeholder="What is the main problem?" class="Category_Specification" required />
+    <!-- [[dropdown]] -->
+          <select name="category_id">
+            {{#categories}}
+            <option value = "{{category_id}}">{{Category_name}}</option>
+            {{/categories}}
+          </select> 
 
-    <input name="description" placeholder="description of encountered problem?" class="description" type="description" required />
+    <input name="description" placeholder="description of my problem" class="description" type="description" required />
 
-    <textarea rows="5" cols="50" name="subject" placeholder="Please put your resolution here" class="message" required></textarea>
+    <textarea rows="5" cols="50" name="subject" placeholder="Solution for this specific problem" class="message" required></textarea>
     <input name="submit" class="btn" type="submit" value="Send" />
 </form>
 

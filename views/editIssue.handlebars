@@ -1,0 +1,22 @@
+<h1>Edit</h1>
+
+{{#issues}}
+<form action="/issues/edit/{{category_id}}" method="POST">
+	
+	Description: <input type="text" name="Category_Specification" value="{{Category_Specification}}" >
+	<p>Current Category : {{category_id}}</p>
+	{{/issues}}
+	<select name="category_id">
+
+            {{#categories}}
+            	{{#selected}}
+            	<option value = "{{category_id}}" selected>{{category}}</option>
+            	{{/selected}}
+
+            	{{^selected}}
+            	<option value = "{{category_id}}" >{{category}}</option>
+            	{{/selected}}
+            {{/categories}}
+          </select>		
+	<input type="submit">
+</form>
