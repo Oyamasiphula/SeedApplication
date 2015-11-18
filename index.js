@@ -13,7 +13,7 @@ var dbOptions = {
       user: 'root',
       password: 'codex',
       port: 3306,
-      database: 'OS_issues_Log'
+      database: 'OS_issues_Logs'
 };
 // at codex machine database nama is OS_issues_Logs;
 
