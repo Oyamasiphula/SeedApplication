@@ -5,9 +5,28 @@ exports.show = function(req, res, next) {
 
 	req.getConnection(function(err, connection){
 			connection.query('SELECT categorise_issue,description,Solution FROM issues',[data], function(err,results){
-				res.render('issues',{
-					results:results
+				if (err)
+              		return next("Error Selecting : %s ",err );
+              	connection.query('SELECT category_id, category from category_td', [data.category_id], function(err, categoryList){
+				if(err)
+					return next("Error Selecting : %s ", err);
+
+					var issue = results[0];
+
+					var categories = categoryList.map(function(category){
+						return {
+							category_id : category.category_id,
+							category : category.category,
+							selected : category.category_id === issue.category_id
+						}
+					});
+
+					res.render('issues',{
+						results:results,
+						categories:categories
+					});
 				});
+
 			});
 	});
 };
