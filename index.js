@@ -34,8 +34,8 @@ app.use(bodyParser.json())
 app.get("/", function (req,res) {
     res.render("home")
 })
-app.get('/issues',issues.show)
-app.post('/issues',issues.show)
+app.get('/issues', issues.show)
+app.post('/issues/add', issues.add)
 
 //start everything up
 var port = process.env.khuluma_port ||2010;
