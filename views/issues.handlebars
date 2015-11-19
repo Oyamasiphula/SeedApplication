@@ -12,19 +12,21 @@
       <tr class="info">
         <th>Category Specification</th>
         <th>description</th>
+        <th>error_message</th>
         <th>Solution</th>
       </tr>
           {{#results}}
       <tr>
         <td>{{categorise_issue}}</td>
         <td>{{description}}</td>
+        <td>{{error_message}}</td>
         <td>{{Solution}}</td>
       </tr>
       {{/results}}
 </table>    
 </div>
 
-<form  action="/issues" method="POST">
+<form  action="/issues/add" method="POST">
 <legend><strong>Log new problem</strong></legend>
     <!-- [[dropdown]] -->
         <div class="dropdown-button"> 
@@ -34,22 +36,12 @@
             {{/categories}}
           </select> 
         </div> 
-    <input name="description" placeholder="description of my problem" class="description" type="description" required />
+    <input name="description" value="{{description}}" placeholder="description of my problem" class="description" type="description" required />
 
-    <textarea rows="5" cols="50" name="subject" placeholder="Solution for this specific problem" class="message" required></textarea>
-    <button name="submit" type="submit" class="btn btn-info" value="Send">Submit</button>
+<input name="categorise_issue" value="{{categorise_issue}}" placeholder="categorise_issue" class="description" type="categorise_issue" required />
+
+<input name="error_message" value="{{error_message}}" placeholder="error_message" class="description" type="error_message" required />
+
+    <textarea rows="5" cols="50" name="Solution" value= "{{Solution}}" placeholder="Solution for this specific problem" class="description" required></textarea>
+    <button name="submit" type="submit" class="btn btn-info" >Submit</button>
 </form>
-<!-- 
-<script type="text/javascript">
-$('.dropdown-button').dropdown({
-      inDuration: 300,
-      outDuration: 225,
-      constrain_width: false, // Does not change width of dropdown to that of the activator
-      hover: true, // Activate on hover
-      gutter: 0, // Spacing from edge
-      belowOrigin: false, // Displays dropdown below the button
-      alignment: 'left' // Displays dropdown with edge aligned to the left of button
-    }
-  );
-</script>
- -->
