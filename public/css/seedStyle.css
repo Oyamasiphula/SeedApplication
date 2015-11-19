@@ -275,10 +275,10 @@ nav ul li a:hover {
 @import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro);
 
 form {
-    margin-left:auto;
-    margin-right:auto;
-    height: 333px;
-    padding:30px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 470px;
+    padding: 30px;
     border: 1px solid rgba(0,0,0,.2);
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
@@ -286,11 +286,11 @@ form {
     -moz-background-clip: padding;
     -webkit-background-clip: padding-box;
     background-clip: padding-box;
-    background: rgba(0, 0, 0, 0.5); 
+    background: rgba(0, 0, 0, 0.5);
     -moz-box-shadow: 0 0 13px 3px rgba(0,0,0,.5);
     -webkit-box-shadow: 0 0 13px 3px rgba(0,0,0,.5);
     box-shadow: 0 0 13px 3px rgba(0,0,0,.5);
-    overflow: hidden; 
+    overflow: hidden;
 }
 
 textarea{
