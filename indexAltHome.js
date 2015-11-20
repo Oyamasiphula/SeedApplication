@@ -35,10 +35,11 @@ app.get("/", function (req,res) {
     res.render("home")
 })
 app.get('/issues',issues.show)
-app.post('/issues',issues.show)
+app.post('/issues/add', issues.add)
+app.get("/issues/search/:query",issues.search)
 
 //start everything up
-var port = process.env.khuluma_port ||2010;
+var port = process.envport ||2010;
 
 app.listen( port, function(){
   console.log('listening on *:' + port);

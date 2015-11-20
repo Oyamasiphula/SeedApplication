@@ -38,7 +38,7 @@ app.get('/issues', issues.show)
 app.post('/issues/add', issues.add)
 
 //start everything up
-var port = process.env.khuluma_port ||2010;
+var port = process.env.port ||    2010;
 
 app.listen( port, function(){
   console.log('listening on *:' + port);

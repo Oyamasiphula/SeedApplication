@@ -1,3 +1,27 @@
+
+exports.search = function(req, res, next){
+	req.getConnection(function(error, connection){
+        
+    var issuesTdPullreq = req.params.query;
+    	issuesTdPullreq = "%" + issuesTdPullreq + "%";
+
+		connection.query('SELECT issue_id, categorise_issue, description, error_message, Solution FROM issues WHERE description LIKE ? OR category LIKE ?', [issuesTdPullreq,issuesTdPullreq], function(error, results) {
+			if (error) return next(error);
+		connection.query('SELECT category_id, category FROM category_td', [issuesTdPullreq], function(err, categoriesResults) {
+				if (error) {
+							return next("Error Searching : %s ", err);
+
+				}
+
+				res.render( 'issuesSearch', {
+					products : results,
+					categories: categoriesResults,
+					layout : false
+					});
+				});
+			});
+		});	
+	}; 
 exports.show = function(req, res, next) {
 	var id = req.params.id;
 
