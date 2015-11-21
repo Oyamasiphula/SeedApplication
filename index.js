@@ -36,6 +36,7 @@ app.get("/", function (req,res) {
 })
 app.get('/issues', issues.show)
 app.post('/issues/add', issues.add)
+app.get('/issues/search/:query', issues.search)
 
 //start everything up
 var port = process.env.port ||    2010;

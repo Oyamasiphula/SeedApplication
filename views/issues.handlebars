@@ -1,40 +1,40 @@
-<div class="row">
+<div class="container">
+  <!-- Description -->
+  <h1 class="description">
+    Developement KiT</br>
+  Take care of all the errors and learn from them
+  </h1>  
+
+  <div class="row">
       <section class="webdesigntuts-workshop">
    <form>
     <label for="issuesTdPullreq">Search</label>
     <input class='searchbar' id="issuesTdPullreq" name="error_message" placeholder="Search for prev error messages">         
        </form>
 </section>
-  </div>
-
-<div class="container">
-  <!-- Description -->
-  <h1 class="description">
-    Developement KiT</br>
-  Take care of all the errors and learn from them
-  </h1>    
-
-  <div class="row">
-   <!-- Table demo -->
-<div class="box-table">
-<table data-fn="contacts" id="reqIssuesOutPut">
-      <tr class="info">
-        <th>Category Specification</th>
-        <th>description</th>
-        <th>error_message</th>
-        <th>Solution</th>
-      </tr>
-          {{#results}}
-      <tr>
-        <td>{{categorise_issue}}</td>
-        <td>{{description}}</td>
-        <td>{{error_message}}</td>
-        <td>{{Solution}}</td>
-      </tr>
-      {{/results}}
-</table>    
+  </div>  
 </div>
-
+  <div class="row">
+    <table class="table-2" id="reqIssuesOutPut">
+  <thead>
+    <th>Category Specification</th>
+    <th>description</th>
+    <th>error_message</th>
+    <th>Solution</th>
+  </thead>
+  <tbody>
+    {{#results}}
+    <tr>
+      <td>{{categorise_issue}}</td>
+      <td>{{description}}</td>
+      <td>{{error_message}}</td>
+      <td>{{Solution}}</td>
+    </tr>
+     {{/results}}
+  </tbody>
+</table>
+</div>
+   <!-- Table demo -->
 <form  action="/issues/add" method="POST">
 <legend><strong>Log new problem</strong></legend>
     <!-- [[dropdown]] -->

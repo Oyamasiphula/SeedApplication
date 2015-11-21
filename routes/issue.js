@@ -1,4 +1,3 @@
-
 exports.search = function(req, res, next){
 	req.getConnection(function(error, connection){
         
@@ -17,6 +16,7 @@ exports.search = function(req, res, next){
 					products : results,
 					categories: categoriesResults,
 					layout : false
+
 					});
 				});
 			});
