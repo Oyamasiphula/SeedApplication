@@ -44,3 +44,4 @@ function makePattern(len, cx, cy, c) {
 }
   // codepen
 }, 100);
+
