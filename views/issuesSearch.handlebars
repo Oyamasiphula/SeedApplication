@@ -1,7 +1,7 @@
-<div class="row">
-    <table class="table-2" id="reqIssuesOutPut">
+      <table class="table-2" id="reqIssuesOutPut">
   <thead>
-    <th>Category Specification</th>
+    <th>issue date</th>
+    <th>Category Specification</th>    
     <th>description</th>
     <th>error_message</th>
     <th>Solution</th>
@@ -9,12 +9,12 @@
   <tbody>
     {{#results}}
     <tr>
-      <td>{{categorise_issue}}</td>
-      <td>{{description}}</td>
+      <td>{{issue_date}}</td>
+      <td>{{Category_Specification}}</td>      
+      <td>{{issue_description}}</td>
       <td>{{error_message}}</td>
       <td>{{Solution}}</td>
     </tr>
      {{/results}}
   </tbody>
 </table>
-</div>

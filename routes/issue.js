@@ -4,7 +4,7 @@ exports.search = function(req, res, next){
     var issuesTdPullreq = req.params.query;
     	issuesTdPullreq = "%" + issuesTdPullreq + "%";
 
-		connection.query('SELECT issue_id, categorise_issue, description, error_message, Solution FROM issues WHERE Solution LIKE ? OR error_message LIKE ?', [issuesTdPullreq,issuesTdPullreq], function(error, results) {
+		connection.query('SELECT issue_id, issue_date, Category_Specification, issue_description, error_message, Solution FROM issues WHERE Solution LIKE ? OR error_message LIKE ?', [issuesTdPullreq,issuesTdPullreq], function(error, results) {
 			console.log(results)
 			if (error) return next(error);
 
@@ -15,10 +15,9 @@ exports.search = function(req, res, next){
 				}
 
 				res.render( 'issuesSearch', {
-					products : results,
+					results : results,
 					categories: categoriesResults,
 					layout : false
-
 					});
 				});
 			});
@@ -30,7 +29,7 @@ exports.show = function(req, res, next) {
 	var data = JSON.parse(JSON.stringify(req.body));
 
 	req.getConnection(function(err, connection){
-			connection.query('SELECT issue_id, categorise_issue, description, error_message, Solution FROM issues',[data], function(err,results){
+			connection.query('SELECT issue_id, issue_date, Category_Specification, issue_description, error_message, Solution FROM issues',[data], function(err,results){
 				if (err)
               		return next("Error Selecting : %s ",err );
               	connection.query('SELECT category_id, category from category_td', [data.category_id], function(err, categoryList){
@@ -95,7 +94,7 @@ exports.add = function (req, res, next) {
 		var input = JSON.parse(JSON.stringify(req.body));
 
 		var data = {
-            categorise_issue : input.categorise_issue,
+            Category_Specification : input.Category_Specification,
             description : input.description,
             error_message :input.error_message,
             Solution :input.Solution,
@@ -117,7 +116,7 @@ exports.update = function(req, res, next){
     var id = req.params.issue_id;
 
     req.getConnection(function(err, connection){
-    	connection.query('UPDATE issues SET categorise_issue = ?, description = ? ,Solution = ?, category_id = ?, WHERE issue_id = ?', [data.Product_name, data.Category_id, id], function(err, rows, fields){
+    	connection.query('UPDATE issues SET Category_Specification = ?, issue_description = ? ,Solution = ?, category_id = ?, WHERE issue_id = ?', [data.Product_name, data.Category_id, id], function(err, rows, fields){
     		if (err)
               		return next("Error Updating : %s ",err);
   
