@@ -21,7 +21,7 @@ section {
     position: relative;
     width: 200px;
     height: 200px;
-    background: #BBBBBB;
+    background: #140A33;
     margin: 30px auto;
     -webkit-border-radius: 50px;
     -moz-border-radius: 50px;
@@ -62,12 +62,13 @@ footer > h1 {
   letter-spacing: 2px;
 }
 footer > p {
-  text-align: center;
-  font: 0.94em "Pacifico";
-  font-weight: 700;
-  color: rgba(0, 0, 0, 0.3);
-  text-transform: uppercase;
-  letter-spacing: 2px;
+    text-align: center;
+    font: 0.94em "Pacifico";
+    font-weight: 700;
+    color: rgb(77, 69, 77);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background-color: floralwhite;
 }
 
 /*below is homepage triangular style*/
@@ -126,11 +127,11 @@ section {
     width: 768px;
   }
 }
-@media screen and (min-width: 1024px) {
+/*@media screen and (min-width: 1024px) {
   .section {
     width: 1024px;
   }
-}
+}*/
 .section.active {
   display: block;
 }
