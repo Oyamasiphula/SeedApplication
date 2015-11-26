@@ -1,5 +1,5 @@
   <h1 class="description">
-    Developement KiT</br>
+    KiT Kata</br>
   Take care of all the errors and learn from them
   </h1>  
 <div class="box">
@@ -12,10 +12,10 @@
   <div class="row">
     <table class="table-2" id="reqIssuesOutPut">
   <thead>
-    <th>issue date</th>
+    <th>Issue Date</th>
     <th>Category Specification</th>    
-    <th>description</th>
-    <th>error_message</th>
+    <th>Description</th>
+    <th>Error Message</th>
     <th>Solution</th>
   </thead>
   <tbody>
@@ -34,19 +34,20 @@
    <!-- Table demo -->
 <form  action="/issues/add" method="POST">
 <legend><strong>Log new problem</strong></legend>
+  <input type="date" name="issue_date" value="{{issue_date}}" class="description" />
     <!-- [[dropdown]] -->
         <div class="dropdown-button"> 
-          <select name="category_id">
+          <select name="category_id" class="description">
             {{#categories}}
             <option value = "{{category_id}}">{{category}}</option>
             {{/categories}}
           </select> 
         </div> 
-    <input name="description" value="{{description}}" placeholder="description of my problem" class="description" type="description" required />
+    <input name="issue_description" value="{{issue_description}}" placeholder="description of my problem" class="description" type="text" required />
 
-<input name="categorise_issue" value="{{categorise_issue}}" placeholder="categorise_issue" class="description" type="categorise_issue" required />
+<input name="Category_Specification" value="{{Category_Specification}}" placeholder="Category_Specification" class="description" type="text" required />
 
-<input name="error_message" value="{{error_message}}" placeholder="error_message" class="description" type="error_message" required />
+<input name="error_message" value="{{error_message}}" placeholder="error_message" class="description" type="text" required />
 
     <textarea rows="5" cols="50" name="Solution" value= "{{Solution}}" placeholder="Solution for this specific problem" class="description" required></textarea>
     <button name="submit" type="submit" class="btn btn-info" >Submit</button>
