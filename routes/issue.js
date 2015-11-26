@@ -94,14 +94,16 @@ exports.add = function (req, res, next) {
 		var input = JSON.parse(JSON.stringify(req.body));
 
 		var data = {
+            issue_date : input.issue_date,
             Category_Specification : input.Category_Specification,
-            description : input.description,
-            error_message :input.error_message,
-            Solution :input.Solution,
+            issue_description : input.issue_description,
+            error_message : input.error_message,
+            Solution : input.Solution,
             category_id : input.category_id
       };
 
 			connection.query('insert into issues set ?', data, function(err, results) {
+        		console.log(results)
         		if (err)
              	 		return next(err);
 
@@ -116,7 +118,7 @@ exports.update = function(req, res, next){
     var id = req.params.issue_id;
 
     req.getConnection(function(err, connection){
-    	connection.query('UPDATE issues SET Category_Specification = ?, issue_description = ? ,Solution = ?, category_id = ?, WHERE issue_id = ?', [data.Product_name, data.Category_id, id], function(err, rows, fields){
+    	connection.query('UPDATE issues SET issue_date = ? Category_Specification = ?, issue_description = ? ,Solution = ?, category_id = ?, WHERE issue_id = ?', [data.Product_name, data.Category_id, id], function(err, rows, fields){
     		if (err)
               		return next("Error Updating : %s ",err);
   
