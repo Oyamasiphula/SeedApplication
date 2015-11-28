@@ -4,7 +4,7 @@ exports.search = function(req, res, next){
     var issuesTdPullreq = req.params.query;
     	issuesTdPullreq = "%" + issuesTdPullreq + "%";
 
-		connection.query('SELECT issue_id, issue_date, Category_Specification, issue_description, error_message, Solution FROM issues WHERE Solution LIKE ? OR error_message LIKE ?', [issuesTdPullreq,issuesTdPullreq], function(error, results) {
+		connection.query('SELECT issue_id, issue_date, subject, issue_description, error_message, Solution FROM issues WHERE Solution LIKE ? OR error_message LIKE ?', [issuesTdPullreq,issuesTdPullreq], function(error, results) {
 			console.log(results)
 			if (error) return next(error);
 
@@ -25,11 +25,10 @@ exports.search = function(req, res, next){
 	}; 
 exports.show = function(req, res, next) {
 	var id = req.params.id;
-
 	var data = JSON.parse(JSON.stringify(req.body));
 
 	req.getConnection(function(err, connection){
-			connection.query('SELECT issue_id, issue_date, Category_Specification, issue_description, error_message, Solution FROM issues',[data], function(err,results){
+			connection.query('SELECT issue_id, issue_date, issues.subject, issues.category_id, category_td.category, issues.issue_description, issues.error_message, issues.Solution FROM issues, category_td WHERE issues.category_id = category_td.category_id',[data], function(err,results){
 				if (err)
               		return next("Error Selecting : %s ",err );
               	connection.query('SELECT category_id, category from category_td', [data.category_id], function(err, categoryList){
@@ -55,38 +54,6 @@ exports.show = function(req, res, next) {
 			});
 	});
 };
-// exports.editIssue = function (req, res, next) {
-// 	req.getConnection(function(err, connection){
-		
-// 		var id = req.params.id;
-//     	connection.query('SELECT category_id, category from Categories_td', [], function(err, categoryList) {
-//         	if (err)
-//               		return next("Error Selecting : %s ",err );
-         
-//          		connection.query('SELECT * FROM issues WHERE id = ?', [id], function(err,rows){
-// 			if(err)
-// 					return next("Error Selecting : %s ", err);
-
-
-// 					var issue = rows[0];
-
-// 					var categories = categoryList.map(function(category){
-// 						return {
-// 							id : category.id,
-// 							category : category.category,
-// 							selected : category.id === issue.Category_id
-// 						}
-// 					});
-
-// 					res.render('editissue', { 
-// 						page_title:"Edit Customers - Node.js",
-// 						issues : issue,
-// 					 	categories:categories
-// 					});      
-// 				});
-//       	});
-// 	});
-// };
 
 exports.add = function (req, res, next) {
 	req.getConnection(function(err, connection){
@@ -95,7 +62,7 @@ exports.add = function (req, res, next) {
 
 		var data = {
             issue_date : input.issue_date,
-            Category_Specification : input.Category_Specification,
+            subject : input.subject,
             issue_description : input.issue_description,
             error_message : input.error_message,
             Solution : input.Solution,
@@ -112,31 +79,50 @@ exports.add = function (req, res, next) {
 	});
 };
 
+exports.edit = function (req, res, next) {
+	req.getConnection(function(err, connection){
+		
+		var id = req.params.id;
+    	connection.query('SELECT category_id, category from category_td', [], function(err, categoryList) {
+        	if (err)
+              		return next("Error Selecting : %s ",err );
+         
+         		connection.query('SELECT * FROM issues WHERE issue_id = ?', [id], function(err,rows){
+			if(err)
+					return next("Error Selecting : %s ", err);
+
+
+					var issue = rows[0];
+
+					var categories = categoryList.map(function(category){
+						return {
+							category_id : category.category_id,
+							category : category.category,
+							selected : category.category_id === issue.category_id
+						}
+					});
+
+					res.render('editissue', { 
+						page_title:"Edit Customers - Node.js",
+						issues : issue,
+					 	categories:categories
+					});      
+				});
+      	});
+	});
+};
+
 exports.update = function(req, res, next){
 
 	var data = JSON.parse(JSON.stringify(req.body));
-    var id = req.params.issue_id;
+    var issue_id = req.params.issue_id;
 
     req.getConnection(function(err, connection){
-    	connection.query('UPDATE issues SET issue_date = ? Category_Specification = ?, issue_description = ? ,Solution = ?, category_id = ?, WHERE issue_id = ?', [data.Product_name, data.Category_id, id], function(err, rows, fields){
+    	connection.query('UPDATE issues SET ? WHERE issue_id = ?', [data, issue_id], function(err, rows, fields){
     		if (err)
               		return next("Error Updating : %s ",err);
   
           	res.redirect('/issues');
     	});
     });
-};
-
-exports.delete = function(req, res, next){
-	var id = req.params.id;
-	req.getConnection(function(err, connection){
-
-		connection.query('DELETE FROM issues WHERE id = ?', id, function(err,rows){
-			if(err)
-				return next("Error deleting : %s ",err );
-			
-			res.redirect('/issues');
-		});
-		 
-	});
 };

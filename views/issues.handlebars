@@ -1,5 +1,5 @@
   <h1 class="description">
-    KiT Kata</br>
+    Kata KiT</br>
   Take care of all the errors and learn from them
   </h1>  
 <div class="box">
@@ -14,6 +14,7 @@
   <thead>
     <th>Issue Date</th>
     <th>Category Specification</th>    
+    <th>subject</th>    
     <th>Description</th>
     <th>Error Message</th>
     <th>Solution</th>
@@ -22,10 +23,14 @@
     {{#results}}
     <tr>
       <td>{{issue_date}}</td>
-      <td>{{Category_Specification}}</td>      
+      <td>{{category}}</td>      
+      <td>{{subject}}</td>      
       <td>{{issue_description}}</td>
       <td>{{error_message}}</td>
-      <td>{{Solution}}</td>
+      <td>{{Solution}}
+      <button type="button" class="btn btn-success" onClick="location.href='/issues/edit/{{issue_id}}'"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+    </td>
+    
     </tr>
      {{/results}}
   </tbody>
@@ -36,16 +41,17 @@
 <legend><strong>Log new problem</strong></legend>
   <input type="date" name="issue_date" value="{{issue_date}}" class="description" />
     <!-- [[dropdown]] -->
-        <div class="dropdown-button"> 
+        <div class="dropdown-button">
+        <p>Choose a Category</p> 
           <select name="category_id" class="description">
             {{#categories}}
             <option value = "{{category_id}}">{{category}}</option>
             {{/categories}}
           </select> 
         </div> 
-    <input name="issue_description" value="{{issue_description}}" placeholder="description of my problem" class="description" type="text" required />
+  <input name="subject" value="{{subject}}" placeholder="subject:" class="description" type="text" required />
 
-<input name="Category_Specification" value="{{Category_Specification}}" placeholder="Category_Specification" class="description" type="text" required />
+  <input name="issue_description" value="{{issue_description}}" placeholder="description of my problem" class="description" type="text" required />
 
 <input name="error_message" value="{{error_message}}" placeholder="error_message" class="description" type="text" required />
 

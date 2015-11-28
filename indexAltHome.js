@@ -33,10 +33,14 @@ app.use(bodyParser.json())
 
 app.get("/", function (req,res) {
     res.render("home")
-})
-app.get('/issues',issues.show)
-app.post('/issues/add', issues.add)
-app.get("/issues/search/:query",issues.search)
+});
+
+app.get("/issues/search/:query",issues.search);
+app.get('/issues',issues.show);
+app.post('/issues/add', issues.add);
+app.get('/issues/edit/:issue_id', issues.edit);
+app.post('/issues/edit/:issue_id', issues.update);
+
 
 //start everything up
 var port = process.envport ||2010;

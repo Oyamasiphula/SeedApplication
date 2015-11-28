@@ -1,19 +1,24 @@
-      <table class="table-2" id="reqIssuesOutPut">
+<table class="table-2" id="reqIssuesOutPut">
   <thead>
-    <th>issue date</th>
+    <th>Issue Date</th>
     <th>Category Specification</th>    
-    <th>description</th>
-    <th>error_message</th>
+    <th>subject</th>    
+    <th>Description</th>
+    <th>Error Message</th>
     <th>Solution</th>
   </thead>
   <tbody>
     {{#results}}
     <tr>
       <td>{{issue_date}}</td>
-      <td>{{Category_Specification}}</td>      
+      <td>{{category}}</td>      
+      <td>{{subject}}</td>      
       <td>{{issue_description}}</td>
       <td>{{error_message}}</td>
-      <td>{{Solution}}</td>
+      <td>{{Solution}}
+      <button type="button" class="btn btn-success" onClick="location.href='/issues/edit/{{issue_id}}'"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+    </td>
+    
     </tr>
      {{/results}}
   </tbody>
