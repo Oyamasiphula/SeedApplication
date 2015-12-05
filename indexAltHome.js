@@ -10,8 +10,8 @@ var app = express();
 
 var dbOptions = {
       host: 'localhost',
-      user: 'root',
-      password: 'codex',
+      user: 'oss_seed_db',
+      password: 'password',
       port: 3306,
       database: 'OS_issues_Logs'
 };

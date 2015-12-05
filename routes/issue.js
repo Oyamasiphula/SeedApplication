@@ -70,7 +70,6 @@ exports.add = function (req, res, next) {
       };
 
 			connection.query('insert into issues set ?', data, function(err, results) {
-        		console.log(results)
         		if (err)
              	 		return next(err);
 

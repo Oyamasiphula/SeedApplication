@@ -11,6 +11,7 @@
     "express-myconnection": "^1.0.4",
     "express-session": "^1.11.3",
     "mocha": "^2.3.3",
+    "mysql": "^2.9.0",
     "nodemon": "~1.4.0"
   },
   "scripts": {
