@@ -1,4 +1,4 @@
--- CREATE DATABASE OS_issues_Logs;
+CREATE DATABASE OS_issues_Logs;
 
 use OS_issues_Logs;
  
