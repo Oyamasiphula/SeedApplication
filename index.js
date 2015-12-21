@@ -36,10 +36,12 @@ app.get("/", function (req,res) {
 })
 app.get('/issues', issues.show)
 app.post('/issues/add', issues.add)
+app.get('/issues/edit/:issue_id', issues.edit);
+app.post('/issues/edit/:issue_id', issues.update);
 app.get('/issues/search/:query', issues.search)
 
 //start everything up
-var port = process.env.port ||    2010;
+var port = process.env.port ||    2001;
 
 app.listen( port, function(){
   console.log('listening on *:' + port);

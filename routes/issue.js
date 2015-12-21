@@ -8,7 +8,7 @@ exports.search = function(req, res, next){
 			console.log(results)
 			if (error) return next(error);
 
-		connection.query('SELECT category_id, category FROM category_td', [issuesTdPullreq], function(err, categoriesResults) {
+		connection.query('SELECT id, category FROM category_td', [issuesTdPullreq], function(err, categoriesResults) {
 				if (error) {
 							return next("Error Searching : %s ", err);
 
@@ -28,20 +28,18 @@ exports.show = function(req, res, next) {
 	var data = JSON.parse(JSON.stringify(req.body));
 
 	req.getConnection(function(err, connection){
-			connection.query('SELECT issue_id, issue_date, issues.subject, issues.category_id, category_td.category, issues.issue_description, issues.error_message, issues.Solution FROM issues, category_td WHERE issues.category_id = category_td.category_id',[data], function(err,results){
+			connection.query('SELECT issue_id, issue_date, issues.subject, issues.id, category_td.category, issues.issue_description, issues.error_message, issues.Solution FROM issues, category_td WHERE issues.id = category_td.id',[data], function(err,results){
 				if (err)
               		return next("Error Selecting : %s ",err );
-              	connection.query('SELECT category_id, category from category_td', [data.category_id], function(err, categoryList){
+              	connection.query('SELECT id, category from category_td', [data.id], function(err, categoryList){
 				if(err)
 					return next("Error Selecting : %s ", err);
-
 					var issue = results[0];
-
 					var categories = categoryList.map(function(category){
 						return {
-							category_id : category.category_id,
+							id : category.id,
 							category : category.category,
-							selected : category.category_id === issue.category_id
+							selected : category.id === issue.id
 						}
 					});
 
@@ -66,7 +64,7 @@ exports.add = function (req, res, next) {
             issue_description : input.issue_description,
             error_message : input.error_message,
             Solution : input.Solution,
-            category_id : input.category_id
+            id : input.id
       };
 
 			connection.query('insert into issues set ?', data, function(err, results) {
@@ -81,23 +79,26 @@ exports.add = function (req, res, next) {
 exports.edit = function (req, res, next) {
 	req.getConnection(function(err, connection){
 		
-		var id = req.params.id;
-    	connection.query('SELECT category_id, category from category_td', [], function(err, categoryList) {
+		var issue_id = req.params.issue_id;
+    	connection.query('SELECT id, category from category_td', [], function(err, categoryList) {
         	if (err)
-              		return next("Error Selecting : %s ",err );
+              		return next("Error Selecting : %ss ",err );
          
-         		connection.query('SELECT * FROM issues WHERE issue_id = ?', [id], function(err,rows){
+         		connection.query('SELECT *  FROM issues WHERE issue_id = ?', [issue_id], function(err,rows){
+         			console.log(rows)
 			if(err)
-					return next("Error Selecting : %s ", err);
+					return next("Error Selecting : %sss ", err);
 
 
 					var issue = rows[0];
 
 					var categories = categoryList.map(function(category){
+												console.log(issue)
+
 						return {
-							category_id : category.category_id,
+							id : category.id,
 							category : category.category,
-							selected : category.category_id === issue.category_id
+							selected : category.id === issue.id
 						}
 					});
 
@@ -117,7 +118,7 @@ exports.update = function(req, res, next){
     var issue_id = req.params.issue_id;
 
     req.getConnection(function(err, connection){
-    	connection.query('UPDATE issues SET ? WHERE issue_id = ?', [data, issue_id], function(err, rows, fields){
+    	connection.query('UPDATE issues SET Solution = ? WHERE id = ?', [data.Solution, id], function(err, rows, fields){
     		if (err)
               		return next("Error Updating : %s ",err);
   

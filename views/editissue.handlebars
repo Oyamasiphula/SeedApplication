@@ -2,22 +2,25 @@
 
 
 <form action="/issues/edit/{{issue_id}}" method="POST">
-<select name="category_id">
+<select name="id">
             {{#categories}}
             	{{#selected}}
-            	<option value = "{{category_id}}" selected>{{category}}</option>
+            	<option value = "{{id}}" selected>{{category}}</option>
             	{{/selected}}
 
             	{{^selected}}
-            	<option value = "{{category_id}}" >{{category}}</option>
+            	<option value = "{{id}}" >{{category}}</option>
             	{{/selected}}
             {{/categories}}
-          </select>		
-	{{#issues}}
+          </select>	
+
+
+	
 	<div class="row">
+    {{#issues}}
 	<h4>Modifify Your Solution</h4> :
-	<textarea rows="5" cols="50" name="Solution" value= "{{Solution}}" placeholder="Solution modification" class="description" required></textarea>
-	<p>Current Category : {{category_id}}</p>
+	<textarea rows="5" cols="50" name="Solution" value="{{Solution}}" class="description" required>{{Solution}}</textarea>
+	<p>Current Category : {{id}}</p>
 	{{/issues}}
 	<button name="submit" type="submit" class="btn btn-info" style="float:left" >Submit</button>
 	</div>

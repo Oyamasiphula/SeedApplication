@@ -39,13 +39,13 @@
    <!-- Table demo -->
 <form  action="/issues/add" method="POST">
 <legend><strong>Log new problem</strong></legend>
-  <input type="date" name="issue_date" value="{{issue_date}}" class="description" />
+  <input type="hidden" name="now()" value="{{issue_date}}" class="description" />
     <!-- [[dropdown]] -->
         <div class="dropdown-button">
         <p>Choose a Category</p> 
-          <select name="category_id" class="description">
+          <select name="id" class="description">
             {{#categories}}
-            <option value = "{{category_id}}">{{category}}</option>
+            <option value = "{{id}}">{{category}}</option>
             {{/categories}}
           </select> 
         </div> 
