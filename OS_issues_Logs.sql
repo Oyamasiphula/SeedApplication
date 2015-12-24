@@ -58,7 +58,6 @@ INSERT INTO `category_td` (`category_id`, `category`) VALUES
 (5, 'Libraries'),
 (6, 'github'),
 (7, 'Other');
-
 -- --------------------------------------------------------
 
 --

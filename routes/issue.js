@@ -28,7 +28,7 @@ exports.show = function(req, res, next) {
 	var data = JSON.parse(JSON.stringify(req.body));
 
 	req.getConnection(function(err, connection){
-			connection.query('SELECT issue_id, issue_date, issues.subject, issues.id, category_td.category, issues.issue_description, issues.error_message, issues.Solution FROM issues, category_td WHERE issues.id = category_td.id',[data], function(err,results){
+			connection.query('SELECT issue_id, issue_date, issues.subject, issues.id, category_td.category, issues.issue_description, issues.error_message, issues.Solution FROM issues, category_td WHERE issues.id = category_td.id GROUP BY subject ORDER BY issue_date',[data], function(err,results){
 				if (err)
               		return next("Error Selecting : %s ",err );
               	connection.query('SELECT id, category from category_td', [data.id], function(err, categoryList){
@@ -76,35 +76,31 @@ exports.add = function (req, res, next) {
 	});
 };
 
-exports.edit = function (req, res, next) {
+exports.showEdit = function (req, res, next) {
 	req.getConnection(function(err, connection){
 		
 		var issue_id = req.params.issue_id;
     	connection.query('SELECT id, category from category_td', [], function(err, categoryList) {
         	if (err)
-              		return next("Error Selecting : %ss ",err );
+              		return next("Error Selecting : %s ",err );
          
-         		connection.query('SELECT *  FROM issues WHERE issue_id = ?', [issue_id], function(err,rows){
-         			console.log(rows)
+         		connection.query('SELECT *  FROM issues WHERE issue_id = ?', [issue_id], function(err, rows){
 			if(err)
-					return next("Error Selecting : %sss ", err);
+					return next("Error Selecting : %s ", err);
 
 
-					var issue = rows[0];
+					var issues = rows[0];
 
 					var categories = categoryList.map(function(category){
-												console.log(issue)
-
 						return {
 							id : category.id,
 							category : category.category,
-							selected : category.id === issue.id
+							selected : category.id === issues.id
 						}
 					});
-
 					res.render('editissue', { 
 						page_title:"Edit Customers - Node.js",
-						issues : issue,
+						issues : issues,
 					 	categories:categories
 					});      
 				});
@@ -118,7 +114,7 @@ exports.update = function(req, res, next){
     var issue_id = req.params.issue_id;
 
     req.getConnection(function(err, connection){
-    	connection.query('UPDATE issues SET Solution = ? WHERE id = ?', [data.Solution, id], function(err, rows, fields){
+    	connection.query('UPDATE issues SET Solution = ?, id = ? WHERE issue_id = ?', [data.Solution, data.id, issue_id], function(err, rows, fields){
     		if (err)
               		return next("Error Updating : %s ",err);
   
