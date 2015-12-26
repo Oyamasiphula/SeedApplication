@@ -88,10 +88,27 @@ nav ul li a:hover {
   inset 0px 0px 10px -1px #000;
 }
 /*below is home logo design style*/
-canvas { position: absolute; }
+canvas {
+    height: 883px;
+    position: absolute;
+    width: 1286px;
+}
 /* check out the javascript and play with the values */
 
-
+#T___follow_0{
+  text-indent: 0px; 
+  margin: 0px; 
+  padding: 0px; 
+  border-style: none; 
+  float: none; 
+  line-height: normal; 
+  font-size: 1px;
+  vertical-align: baseline; 
+  display: inline-block; 
+  width: 00104px; 
+  height: 20px; 
+  background: transparent;
+}
 /*below is social button style*/
 
 @import url("//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css");
@@ -216,11 +233,12 @@ footer {
 
 /*below is table style*/
 /*------------------------*/
-.description {
+select.description {
     color: initial;
     text-shadow: 0 0.1em 0.2em #9E4217;
 }
-.descriptionBut {
+.description {
+    text-align: center;
     color: initial;
     text-shadow: 0 0.1em 0.2em #9E4217;
 }

@@ -34,6 +34,9 @@ app.use(bodyParser.json())
 app.get("/", function (req,res) {
     res.render("home")
 })
+app.get("/whyNodejs", function (req,res) {
+    res.render("why_nodejs")
+})
 app.get('/issues', issues.show)
 app.post('/issues/add', issues.add)
 app.get('/issues/edit/:issue_id', issues.showEdit);

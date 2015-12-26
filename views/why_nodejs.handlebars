@@ -1,0 +1,234 @@
+<div class="container"><h2 id="introduction">Introduction</h2>
+
+<p>JavaScript’s rising popularity has brought with it a lot of changes, and the face of web development today is dramatically different. The things that we can do on the web nowadays with JavaScript running on the server, as well as in the browser, were hard to imagine just several years ago, or were encapsulated within sandboxed environments like Flash or Java Applets.</p>
+
+<p>Before digging into <a href="http://www.toptal.com/nodejs">Node.js</a>, you might want to read up on the benefits of using <a href="http://www.toptal.com/javascript/guide-to-full-stack-javascript-initjs">JavaScript across the stack</a> which unifies the language and data format (JSON), allowing you to optimally reuse developer resources. As this is more a benefit of JavaScript than Node.js specifically, we won’t discuss it much here. But it’s a key advantage to incorporating Node in your stack.</p>
+
+<p>As <a href="http://en.wikipedia.org/wiki/Nodejs" target="_blank">Wikipedia</a> states: “Node.js is a packaged compilation of Google’s V8 JavaScript engine, the libuv platform abstraction layer, and a core library, which is itself primarily written in JavaScript.” Beyond that, it’s worth noting that Ryan Dahl, the creator of Node.js, was aiming to create <strong>real-time websites with push capability</strong>, “inspired by applications like Gmail”. In Node.js, he gave developers a tool for working in the non-blocking, event-driven I/O paradigm.</p>
+
+<div class="pop_out_box is-full_width is-big">
+After over 20 years of stateless-web based on the stateless request-response paradigm, we finally have web applications with real-time, two-way connections.
+</div>
+
+<p>In one sentence: <a href="http://www.toptal.com/nodejs/job-description">Node.js</a> shines in real-time web applications employing push technology over websockets. What is so revolutionary about that? Well, after over 20 years of stateless-web based on the stateless request-response paradigm, we finally have web applications with real-time, two-way connections, where both the client and server can initiate communication, allowing them to exchange data freely. This is in stark contrast to the typical web response paradigm, where the client always initiates communication. Additionally, it’s all based on the open web stack (HTML, CSS and JS) running over the standard port 80.</p>
+
+<p>One might argue that we’ve had this for years in the form of Flash and Java Applets—but in reality, those were just sandboxed environments using the web as a transport protocol to be delivered to the client. Plus, they were run in isolation and often operated over non-standard ports, which may have required extra permissions and such.</p>
+
+<p>With all of its advantages, Node.js now plays a critical role in the technology stack of <a href="http://www.quora.com/What-companies-are-using-Node-js-in-production" target="_blank">many high-profile companies</a> who depend on its unique benefits.</p>
+
+<p>In this post, I’ll discuss not only how these advantages are accomplished, but also why you might want to use Node.js—and <em>why not</em>—using some of the classic web application models as examples.</p>
+
+<h2 id="how-does-it-work">How Does It Work?</h2>
+
+<p>The main idea of Node.js: use non-blocking, event-driven I/O to remain lightweight and efficient in the face of data-intensive real-time applications that run across distributed devices.</p>
+
+<p>That’s a mouthful.</p>
+
+<div class="pop_out_box is-full_width is-big">
+What it really means is that Node.js is <em>not</em> a silver-bullet new platform that will dominate the web development world. Instead, it’s a platform that fills a particular need.
+</div>
+
+<div class="tweet_this">
+<iframe id="twitter-widget-3" scrolling="no" frameborder="0" allowtransparency="true" class="twitter-share-button twitter-share-button-rendered twitter-tweet-button" title="Twitter Tweet Button" src="http://platform.twitter.com/widgets/tweet_button.c633b87376883931e7436b93bb46a699.en.html#_=1451132506982&amp;dnt=false&amp;id=twitter-widget-3&amp;lang=en&amp;original_referer=http%3A%2F%2Fwww.toptal.com%2Fnodejs%2Fwhy-the-hell-would-i-use-node-js&amp;size=m&amp;text=Node.js%20is%20not%20a%20silver%20bullet.%20It%27s%20a%20platform%20that%20fills%20a%20particular%20need.&amp;type=share&amp;url=http%3A%2F%2Fwww.toptal.com%2Fnodejs%2Fwhy-the-hell-would-i-use-node-js&amp;via=toptalllc" style="position: static; visibility: visible; width: 61px; height: 20px;" data-url="http://www.toptal.com/nodejs/why-the-hell-would-i-use-node-js"></iframe>
+</div>
+
+<p>What it <em>really</em> means is that Node.js is <em>not</em> a silver-bullet new platform that will dominate the web development world. <strong>Instead, it’s a platform that fills a particular need</strong>. And understanding this is absolutely essential. You definitely don’t want to use Node.js for CPU-intensive operations; in fact, using it for heavy computation will annul nearly all of its advantages. Where Node really shines is in building fast, scalable network applications, as it’s capable of handling a huge number of simultaneous connections with high throughput, which equates to high scalability.</p>
+
+<p>How it works under-the-hood is pretty interesting. Compared to traditional web-serving techniques where each connection (request) spawns a new thread, taking up system RAM and eventually maxing-out at the amount of RAM available, Node.js operates on a single-thread, using non-blocking I/O calls, allowing it to support tens of thousands of concurrent connections (<a href="http://en.wikipedia.org/wiki/Nodejs" target="_blank">held in the event loop</a>).</p>
+
+<p><img src="//assets.toptal.io/uploads/blog/image/50/toptal-blog-1_B.png" alt="Diagram of traditional vs. Node.js server thread"></p>
+
+<p>A quick calculation: assuming that each thread potentially has an accompanying <a href="http://nodejs.org/about/" target="_blank">2 MB of memory</a> with it, running on a system with 8 GB of RAM puts us at a theoretical maximum of 4000 concurrent connections, plus the cost of <a href="http://www.slideshare.net/marcusf/nonblocking-io-event-loops-and-nodejs" target="_blank">context-switching between threads</a>. That’s the scenario you typically deal with in traditional web-serving techniques. By avoiding all that, Node.js achieves scalability levels of over 1M concurrent connections (<a href="http://blog.caustik.com/2012/08/19/node-js-w1m-concurrent-connections/" target="_blank">as a proof-of-concept</a>).</p>
+
+<p>There is, of course, the question of sharing a single thread between all clients requests, and it is a potential pitfall of writing Node.js applications. Firstly, heavy computation could choke up Node’s single thread and cause problems for all clients (more on this later) as incoming requests would be blocked until said computation was completed. Secondly, developers need to be really careful not to allow an exception bubbling up to the core (topmost) Node.js event loop, which will cause the Node.js instance to terminate (effectively crashing the program).</p>
+
+<p>The technique used to avoid exceptions bubbling up to the surface is passing errors back to the caller as callback parameters (instead of throwing them, like in other environments). Even if some unhandled exception manages to bubble up, there are <a href="http://shapeshed.com/uncaught-exceptions-in-node/" target="_blank">mutiple paradigms and tools</a> available to monitor the Node process and perform the necessary recovery of a crashed instance (although you won’t be able to recover users’ sessions), the most common being the <a href="http://blog.nodejitsu.com/keep-a-nodejs-server-up-with-forever" target="_blank">Forever module</a>, or a different approach with external system tools <a href="http://howtonode.org/deploying-node-upstart-monit" target="_blank"><em>upstart</em> and <em>monit</em></a>.</p>
+
+<h2 id="npm-the-node-package-manager">NPM: The Node Package Manager</h2>
+
+<p>When discussing Node.js, one thing that definitely should not be omitted is built-in support for package management using the <a href="http://docs.nodejitsu.com/articles/getting-started/npm/what-is-npm" target="_blank">NPM</a> tool that comes by default with every Node.js installation. The idea of NPM modules is quite similar to that of <em>Ruby Gems</em>: a set of publicly available, reusable components, available through easy installation via an online repository, with version and dependency management.</p>
+
+<p>A full list of packaged modules can be found on the NPM website https://npmjs.org/ , or accessed using the NPM CLI tool that automatically gets installed with Node.js. The module ecosystem is open to all, and anyone can publish their own module that will be listed in the NPM repository. A brief introduction to NPM (a bit old, but still valid) can be found at http://howtonode.org/introduction-to-npm.</p>
+
+<p>Some of the most popular NPM modules today are:</p>
+
+<ul>
+  <li><a href="http://expressjs.com" target="_blank">express</a> - Express.js, a Sinatra-inspired web development framework for Node.js, and the de-facto standard for the majority of Node.js applications out there today.</li>
+  <li><a href="http://www.senchalabs.org/connect/" target="_blank">connect</a> - Connect is an extensible HTTP server framework for Node.js, providing a collection of high performance “plugins” known as middleware; serves as a base foundation for Express.</li>
+  <li><a href="http://socket.io" target="_blank">socket.io</a> and <a href="https://github.com/sockjs" target="_blank">sockjs</a> - Server-side component of the two most common websockets components out there today.</li>
+  <li><a href="http://jade-lang.com" target="_blank">Jade</a> - One of the popular templating engines, inspired by HAML, a default in Express.js.</li>
+  <li><a href="https://npmjs.org/package/mongodb" target="_blank">mongo</a> and <a href="https://github.com/gett/mongojs" target="_blank">mongojs</a> - MongoDB wrappers to provide the API for MongoDB object databases in Node.js.</li>
+  <li><a href="https://github.com/mranney/node_redis" target="_blank">redis</a> - Redis client library.</li>
+  <li><a href="https://npmjs.org/package/coffee-script" target="_blank">coffee-script</a> - CoffeeScript compiler that allows developers to write their Node.js programs using Coffee.</li>
+  <li><a href="https://npmjs.org/package/underscore" target="_blank">underscore</a> (<a href="http://lodash.com" target="_blank">lodash</a>, <a href="https://npmjs.org/package/lazy" target="_blank">lazy</a>) - The most popular utility library in JavaScript, packaged to be used with Node.js, as well as its two counterparts, which promise <a href="http://philosopherdeveloper.com/posts/introducing-lazy-js.html" target="_blank">better performance</a> by taking a slightly different implementation approach.</li>
+  <li><a href="https://npmjs.org/package/forever" target="_blank">forever</a> - Probably the most common utility for ensuring that a given node script runs continuously. Keeps your Node.js process up in production in the face of any unexpected failures.</li>
+</ul>
+
+<p>The list goes on. There are tons of really useful packages out there, available to all (no offense to those that I’ve omitted here).</p>
+
+<h2 id="examples-of-where-nodejs-should-be-used">Examples of Where Node.js Should Be Used</h2>
+
+<h3 id="chat">CHAT</h3>
+
+<p>Chat is the most typical real-time, multi-user application. From IRC (back in the day), through many proprietary and open protocols running on non-standard ports, to the ability to implement everything today in Node.js with websockets running over the standard port 80.</p>
+
+<p>The chat application is really the sweet-spot example for Node.js: it’s a lightweight, high traffic, data-intensive (but low processing/computation) application that runs across distributed devices. It’s also a great use-case for learning too, as it’s simple, yet it covers most of the paradigms you’ll ever use in a typical Node.js application.</p>
+
+<p>Let’s try to depict how it works.</p>
+
+<p>In the simplest example, we have a single chatroom on our website where people come and can exchange messages in one-to-many (actually all) fashion. For instance, say we have three people on the website all connected to our message board.</p>
+
+<p>On the server-side, we have a simple <a href="http://expressjs.com/" target="_blank">Express.js</a> application which implements two things: 1) a GET ‘/’ request handler which serves the webpage containing both a message board and a ‘Send’ button to initialize new message input, and 2) a websockets server that listens for new messages emitted by websocket clients.</p>
+
+<p>On the client-side, we have an HTML page with a couple of handlers set up, one for the ‘Send’ button click event, which picks up the input message and sends it down the websocket, and another that listens for new incoming messages on the websockets client (i.e., messages sent by other users, which the server now wants the client to display).</p>
+
+<p>When one of the clients posts a message, here’s what happens:</p>
+
+<ol>
+  <li>Browser catches the ‘Send’ button click through a JavaScript handler, picks up the value from the input field (i.e., the message text), and emits a websocket message using the websocket client connected to our server (initialized on web page initialization).</li>
+  <li>Server-side component of the websocket connection receives the message and forwards it to all other connected clients using the broadcast method.</li>
+  <li>All clients receive the new message as a push message via a websockets client-side component running within the web page. They then pick up the message content and update the web page in-place by appending the new message to the board.</li>
+</ol>
+
+<p><img src="//assets.toptal.io/uploads/blog/image/52/toptal-blog-2_B.png" alt="Diagram of client and server websockets in a Node.js application"></p>
+
+<p>This is the <a href="http://net.tutsplus.com/tutorials/javascript-ajax/real-time-chat-with-nodejs-socket-io-and-expressjs/" target="_blank">simplest example</a>. For a more <a href="http://jinzhang.me/posts/2013/sockjs-redis-nodejs-tutorial/" target="_blank">robust solution</a>, you might use a simple cache based on the Redis store. Or in an even more advanced solution, a message queue to handle the routing of messages to clients and a more robust delivery mechanism which may cover for temporary connection losses or storing messages for registered clients while they’re offline. But regardless of the improvements that you make, Node.js will still be operating under the same basic principles: reacting to events, handling many concurrent connections, and maintaining fluidity in the user experience.</p>
+
+<h3 id="api-on-top-of-an-object-db">API ON TOP OF AN OBJECT DB</h3>
+
+<p>Although Node.js really shines with real-time applications, it’s quite a natural fit for exposing the data from object DBs (e.g. MongoDB). JSON stored data allow Node.js to function without the impedance mismatch and data conversion.</p>
+
+<p>For instance, if you’re using Rails, you would convert from JSON to binary models, then expose them back as JSON over the HTTP when the data is consumed by Backbone.js, Angular.js, etc., or even plain jQuery AJAX calls. With Node.js, you can simply expose your JSON objects with a REST API for the client to consume. Additionally, you don’t need to worry about converting between JSON and whatever else when reading or writing from your database (if you’re using MongoDB). In sum, you can avoid the need for multiple conversions by using a uniform data serialization format across the client, server, and database.</p>
+
+<h3 id="queued-inputs">QUEUED INPUTS</h3>
+
+<p>If you’re receiving a high amount of concurrent data, your database can become a bottleneck. As depicted above, Node.js can easily handle the concurrent connections themselves. But because database access is a blocking operation (in this case), we run into trouble. The solution is to acknowledge the client’s behavior before the data is truly written to the database.</p>
+
+<p>With that approach, the system maintains its responsiveness under a heavy load, which is particularly useful when the client doesn’t need firm confirmation of a the successful data write. Typical examples include: the logging or writing of user-tracking data, processed in batches and not used until a later time; as well as operations that don’t need to be reflected instantly (like updating a ‘Likes’ count on Facebook) where <a href="http://www.allthingsdistributed.com/2007/12/eventually_consistent.html" target="_blank">eventual consistency</a> (so often used in NoSQL world) is acceptable.</p>
+
+<p>Data gets queued through some kind of caching or message queuing infrastructure (e.g., <a href="http://www.rabbitmq.com" target="_blank">RabbitMQ</a>, <a href="http://zeromq.org" target="_blank">ZeroMQ</a>) and digested by a separate database batch-write process, or computation intensive processing backend services, written in a better performing platform for such tasks. Similar behavior can be implemented with other languages/frameworks, but not on the same hardware, with the same high, maintained throughput.</p>
+
+<p><img src="//assets.toptal.io/uploads/blog/image/53/toptal-blog-3_B.png" alt="Diagram of a database batch-write in Node.js with message queuing"></p>
+
+<p>In short: with Node, you can push the database writes off to the side and deal with them later, proceeding as if they succeeded.</p>
+
+<h3 id="data-streaming">DATA STREAMING</h3>
+
+<p>In more traditional web platforms, HTTP requests and responses are treated like isolated event; in fact, they’re actually streams. This observation can be utilized in Node.js to build some cool features. For example, it’s possible to process files while they’re still being uploaded, as the data comes in through a stream and we can process it in an online fashion. This could be done for <a href="https://transloadit.com/blog/2010/12/realtime-encoding-over-150x-faster" target="_blank">real-time audio or video encoding</a>, and proxying between different data sources (see next section).</p>
+
+<h3 id="proxy">PROXY</h3>
+
+<p>Node.js is easily employed as a server-side proxy where it can handle a large amount of simultaneous connections in a non-blocking manner. It’s especially useful for proxying different services with different response times, or collecting data from multiple source points.</p>
+
+<p>An example: consider a server-side application communicating with third-party resources, pulling in data from different sources, or storing assets like images and videos to third-party cloud services.</p>
+
+<p>Although dedicated proxy servers do exist, using Node instead might be helpful if your proxying infrastructure is non-existent or if you need a solution for local development. By this, I mean that you could build a client-side app with a Node.js development server for assets and proxying/stubbing API requests, while in production you’d handle such interactions with a dedicated proxy service (nginx, HAProxy, etc.).</p>
+
+<p>Let’s  -->
+  get back to the application level. Another example where desktop software dominates, but could be easily replaced with a real-time web solution is brokers’ trading software, used to track stocks prices, perform calculations/technical analysis, and create graphs/charts.</p>
+
+<p>Switching to a real-time web-based solution would allow brokers to easily switch workstations or working places. Soon, we might start seeing them on the beach in Florida.. or Ibiza.. or Bali.</p>
+
+<h3 id="application-monitoring-dashboard">APPLICATION MONITORING DASHBOARD</h3>
+
+<p>Another common use-case in which Node-with-web-sockets fits perfectly: tracking website visitors and visualizing their interactions in real-time. <em>(If you’re interested, this idea is already being productized by <a href="http://projects.nuttnet.net/hummingbird/" target="_blank">Hummingbird</a>.)</em></p>
+
+<p>You could be gathering real-time stats from your user, or even moving it to the next level by introducing targeted interactions with your visitors by opening a communication channel when they reach a specific point in your funnel. <em>(If you’re interested, this idea is already being productized by <a href="http://canddi.com/" target="_blank">CANDDi</a>.)</em></p>
+
+<p>Imagine how you could improve your business if you knew what your visitors were doing in real-time—if you could visualize their interactions. With the real-time, two-way sockets of Node.js, now you can.</p>
+
+<h3 id="system-monitoring-dashboard">SYSTEM MONITORING DASHBOARD</h3>
+
+<p>Now, let’s visit the infrastructure side of things. Imagine, for example, an SaaS provider that wants to offer its users a service-monitoring page (e.g., <a href="https://status.github.com" target="_blank">GitHub’s status page</a>). With the Node.js event-loop, we can create a powerful web-based dashboard that checks the services’ statuses in an asynchronous manner and pushes data to clients using websockets.</p>
+
+<p>Both internal (intra-company) and public services’ statuses can be reported live and in real-time using this technology. Push that idea a little further and try to imagine a <a href="http://en.wikipedia.org/wiki/Network_operations_center" target="_blank">Network Operations Center (NOC)</a> monitoring applications in a telecommunications operator, cloud/network/hosting provider, or some financial institution, all run on the open web stack backed by Node.js and websockets instead of Java and/or Java Applets.</p>
+
+<div class="grey_text">
+<em>Note: Don't try to build hard real-time systems in Node (i.e., systems requiring consistent response times). <a href="http://nodeguide.com/convincing_the_boss.html" target="_blank">Erlang is probably a better choice</a> for that class of application.</em>
+</div>
+
+<h2 id="where-nodejs-can-be-used">Where Node.js Can Be Used</h2>
+
+<h3 id="server-side-web-applications">SERVER-SIDE WEB APPLICATIONS</h3>
+
+<p>Node.js with Express.js can also be used to create classic web applications on the server-side. However, while possible, this request-response paradigm in which Node.js would be carrying around rendered HTML is not the most typical use-case. There are arguments to be made for and against this approach. Here are some facts to consider:</p>
+
+<p>Pros:</p>
+
+<ul>
+  <li>If your application doesn’t have any CPU intensive computation, you can build it in Javascript top-to-bottom, even down to the database level if you use JSON storage Object DB like MongoDB. This eases development (including hiring) significantly.</li>
+  <li>Crawlers receive a fully-rendered HTML response, which is far more SEO-friendly than, say, a Single Page Application or a websockets app run on top of Node.js.</li>
+</ul>
+
+<p>Cons:</p>
+
+<ul>
+  <li>Any CPU intensive computation will block Node.js responsiveness, so a threaded platform is a better approach. Alternatively, you could try scaling out the computation [*].</li>
+  <li>Using Node.js with a relational database is still quite a pain (see below for more detail). Do yourself a favour and pick up any other environment like Rails, Django, or ASP.Net MVC if you’re trying to perform relational operations.</li>
+</ul>
+
+<div class="grey_text">
+<em>[*] An alternative to these CPU intensive computations is to create a highly scalable MQ-backed environment with back-end processing to keep Node as a front-facing ‘clerk’ to handle client requests asynchronously.</em>
+</div>
+
+<h2 id="where-nodejs-shouldnt-be-used">Where Node.js Shouldn’t Be Used</h2>
+
+<h3 id="server-side-web-application-w-a-relational-db-behind">SERVER-SIDE WEB APPLICATION W/ A RELATIONAL DB BEHIND</h3>
+
+<p>Comparing Node.js with Express.js against Ruby on Rails, for example, there is a clean decision in favour of the latter when it comes to relational data access.</p>
+
+<p>Relational DB tools for Node.js are still in their early stages; they’re rather immature and not as pleasant to work with. On the other hand, Rails automagically provides data access setup right out of the box together with DB schema migrations support tools and other Gems (pun intended). Rails and its peer frameworks have mature and proven Active Record or Data Mapper data access layer implementations, which you’ll sorely miss if you try to replicate them in pure JavaScript.[*]</p>
+
+<p>Still, if you’re really inclined to remain JS all-the-way (and ready to pull out some of your hair), keep an eye on <a href="http://sequelizejs.com" target="_blank">Sequelize</a> and <a href="https://github.com/dresende/node-orm2" target="_blank">Node ORM2</a>—both are still immature, but they may eventually catch up.</p>
+
+<div class="grey_text">
+<em>[*] It’s possible and not uncommon to use Node solely as a front-end, while keeping your Rails back-end and its easy-access to a relational DB.</em>
+</div>
+
+<div style="height:15px"></div>
+
+<h3 id="heavy-server-side-computationprocessing">HEAVY SERVER-SIDE COMPUTATION/PROCESSING</h3>
+
+<p>When it comes to heavy computation, Node.js is not the best platform around. No, you definitely don’t want to build a <a href="http://zef.me/4561/node-js-and-the-case-of-the-blocked-event-loop" target="_blank">Fibonacci computation server in Node.js</a>. In general, any CPU intensive operation annuls all the throughput benefits Node offers with its event-driven, non-blocking I/O model because any incoming requests will be blocked while the thread is occupied with your number-crunching.</p>
+
+<p>As stated previously, Node.js is single-threaded and uses only a single CPU core. When it comes to adding concurrency on a multi-core server, there is some work being done by the Node core team in the form of a cluster module [ref: http://nodejs.org/api/cluster.html]. You can also run several Node.js server instances pretty easily behind a <a href="http://blog.argteam.com/coding/hardening-node-js-for-production-part-2-using-nginx-to-avoid-node-js-load/" target="_blank">reverse proxy via nginx</a>.</p>
+
+<p>With clustering, you should still offload all heavy computation to background processes written in a more appropriate environment for that, and having them communicate via a message queue server like RabbitMQ.</p>
+
+<p>Even though your background processing might be run on the same server initially, such an approach has the potential for very high scalability. Those background processing services could be easily distributed out to separate worker servers without the need to configure the loads of front-facing web servers.</p>
+
+<p>Of course, you’d use the same approach on other platforms too, but with Node.js you get that high reqs/sec throughput we’ve talked about, as each request is a small task handled very quickly and efficiently.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>We’ve discussed Node.js from theory to practice, beginning with its goals and ambitions, and ending with its sweet spots and pitfalls. When people run into problems with Node, it almost always boils down to the fact that <strong>blocking operations are the root of all evil</strong>—99% of Node misuses come as a direct consequence.</p>
+
+<div class="pop_out_box is-full_width is-big">
+In Node, blocking operations are the root of all evil—99% of Node misuses come as a direct consequence.
+</div>
+
+<p>Remember: Node.js was never created to solve the compute scaling problem. It was created to solve the I/O scaling problem, which it <a href="http://www.srirangan.net/2012-05-node-js-critics-which-part-of-event-driven-non-blocking-io-model-you-dont-understand" target="_blank">does really well</a>.</p>
+
+<p>Why use Node.js? If your use case does not contain CPU intensive operations nor access any blocking resources, you can exploit the benefits of Node.js and enjoy fast and scalable network applications. Welcome to the real-time web.</p>
+
+  </li>
+  </ul></div></div>
+</div>
+</div>
+<h3 id="brokerage---stock-traders-dashboard">BROKERAGE - STOCK TRADER’S DASHBOARD</h3>
+</div>
+
+
+<footer>
+<div class="footer-social-links">
+<P><strong>STAY UPDATED BY CONNECTING WITH US HERE:</strong></P>
+<br>
+  
+  <a href="https://www.facebook.com/oy.siphula" title="Facebook" target="_blank"><i class="fa fa-facebook"></i></a>
+  <a href="https://twitter.com/oyamasiphula" title="Twitter" target="_blank"><i class="fa fa-twitter"></i></a>
+  <a href="oyama@projectcodex.co" title="Google+" target="_blank"><i class="fa fa-google-plus"></i></a>
+  <a href="http://www.linkedin.com/home?trk=nav_responsive_tab_home" title="LinkedIn+" target="_blank"><i class="fa fa-linkedin"></i></a>
+  <a href="https://github.com/oyamasiphula" title="Dribbble" target="_blank"><i class="fa fa-github "></i></a>
+</div>
+  <p>Happy CODE & enjoy the real world!!!</p>
+</footer>
