@@ -8,7 +8,6 @@
   "license": "ISC",
   "homepage": "https://github.com/Oyamasiphula/SeedApplication",
   "moduleType": [],
-  "private": true,
   "ignore": [
     "**/.*",
     "node_modules",
