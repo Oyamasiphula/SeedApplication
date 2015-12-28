@@ -31,17 +31,14 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
-app.get("/", function (req,res) {
-    res.render("home")
-})
-app.get("/whyNodejs", function (req,res) {
-    res.render("why_nodejs")
-})
-app.get('/issues', issues.show)
-app.post('/issues/add', issues.add)
+app.get("/", issues.getHome)
+app.get('/issues', issues.show);
+app.get('/issues/search/:query', issues.search);
+app.post('/issues/add', issues.add);
 app.get('/issues/edit/:issue_id', issues.showEdit);
 app.post('/issues/update/:issue_id', issues.update);
-app.get('/issues/search/:query', issues.search);
+app.get("/whyNodejs", issues.getNJsBasicInfo);
+app.get('/about', issues.about)
 
 //start everything up
 var port = process.env.port || 2001;
