@@ -23,6 +23,7 @@ exports.search = function(req, res, next){
 			});
 		});	
 	}; 
+	
 exports.show = function(req, res, next) {
 	var id = req.params.id;
 	var data = JSON.parse(JSON.stringify(req.body));
@@ -41,8 +42,7 @@ exports.show = function(req, res, next) {
 				});
 
 			});
-	});
-};
+	};
 
 exports.add = function (req, res, next) {
 	req.getConnection(function(err, connection){
