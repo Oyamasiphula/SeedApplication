@@ -27,13 +27,22 @@ exports.search = function(req, res, next){
 exports.show = function(req, res, next) {
 	var id = req.params.id;
 	var data = JSON.parse(JSON.stringify(req.body));
-
-	req.getConnection(function(err, connection){
-			connection.query('SELECT issue_id, issue_date, issues.subject, issues.id, category_td.category, issues.issue_description, issues.error_message, issues.Solution FROM issues, category_td WHERE issues.id = category_td.id GROUP BY subject ORDER BY issue_date',[data], function(err,results){
-				if (err)
-              		return next("Error Selecting : %s ",err );
-              	+
-              	
+	
+	req.getConnection(function(err,connection){
+	connection.query('SELECT issue_id, issue_date, issues.subject, issues.id, category_td.category, issues.issue_description, issues.error_message, issues.Solution FROM issues, category_td WHERE issues.id = category_td.id GROUP BY subject ORDER BY issue_date',[data], function(err,results){
+  				if (err)
+                		return next("Error Selecting : %s ",err );
+               	connection.query('SELECT id, category from category_td', [data.id], function(err, categoryList){
+ 				if(err)
+ 					return next("Error Selecting : %s ", err);
+ 					var issue = results[0];
+ 					var categories = categoryList.map(function(category){
+ 						return {
+ 							id : category.id,
+ 							category : category.category,
+ 							selected : category.id === issue.id
+ 						}
+ 					});
 
 					res.render('issues',{
 						results:results,
@@ -42,6 +51,7 @@ exports.show = function(req, res, next) {
 				});
 
 			});
+		});
 	};
 
 exports.add = function (req, res, next) {
