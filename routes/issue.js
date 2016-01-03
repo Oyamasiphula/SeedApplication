@@ -13,7 +13,6 @@ exports.search = function(req, res, next){
     	issuesTdPullreq = "%" + issuesTdPullreq + "%";
 
 		connection.query('SELECT issue_id, issue_date, subject, issue_description, error_message, Solution FROM issues WHERE Solution LIKE ? OR error_message LIKE ?', [issuesTdPullreq,issuesTdPullreq], function(error, results) {
-			console.log(results)
 			if (error) return next(error);
 
 		connection.query('SELECT id, category FROM category_td', [issuesTdPullreq], function(err, categoriesResults) {

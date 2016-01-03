@@ -191,3 +191,24 @@ section{position:relative;overflow:hidden;}
 .animation-back-button-container svg{float:left;margin-right:8px;-webkit-transition:margin-right 0.5s ease-in-out;-moz-transition:margin-right 0.5s ease-in-out;transition:margin-right 0.5s ease-in-out;}
 .animation-back-button-container span{font-family:'HelveticaNeueW01-55Roma';font-size:14px;line-height:25px;color:#484748;text-transform:uppercase;}
 .animation-back-button-container:hover svg{margin-right:5px;}
+.radio {width: 20px;height: 20px;overflow: hidden;margin: 10px 10px 0 0;padding: 0;text-align: center;font-family: 'Lato';text-decoration: none;font-size: 14px;color: #06592B;font-weight: 900;cursor: pointer;border: 2px solid #7DBA35;border-radius: 50%;display: none;transition: background-color .4s;
+}
+.radio:hover {
+  background-color: #727272;
+}
+input:checked ~ .radio {color: #FFF;background-color: #000;opacity: 1;
+}
+.img-container {width: 247px;height: 130px;margin: -8px 0px 3px -127px;position: static;overflow: hidden;text-align: center;display: inline-block;
+}
+#one, #two, #three { 	opacity: 0; 	-webkit-transform: translate(0,30px); 	transition-property: -webkit-transform, opacity; 	transition-duration: .5s; 	position: absolute;display: inline-block; 	border-radius: 1px;
+}
+#img-1:checked ~ .img-container #one,
+#img-2:checked ~ .img-container #two,
+#img-3:checked ~ .img-container #three {opacity: 1;-webkit-transform: translate(0,0);display: inline-block;
+}
+#img-1:checked ~ .nav label #dot-1.radio,
+#ADCimg-2:checked ~ .nav label #dot-2.radio,
+#img-3:checked ~ .nav label #dot-3.radio {color: #FFF;background-color: #000;display: inline-block;
+}
+.nav {width: 120px;margin: inherit;display: inline;
+}

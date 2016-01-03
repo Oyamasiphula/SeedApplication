@@ -3,7 +3,6 @@
 		<header>
 
 			<title>Seed Application</title>
-<meta name=viewport content="width=device-width, initial-scale=1">
 <link href='http://fonts.googleapis.com/css?family=Vollkorn:400,700' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="/css/seedStyle.css">
@@ -14,23 +13,56 @@
 
 		</header>
 <body background= "/img/grid_DominikKiss_SubtlePatterns.jpg" style="backround-repeat">
-	<nav>
+	<nav class="cont">
 	  <ul>
-	    <li><a href="/">Home</a></li>
-	    <li><a href="https://github.com/Oyamasiphula?tab=repositories">Projects</a></li>
+	    <li><a style="padding: 15px;line-height: 0.428571;" href="/">Home</a></li>
+	    <li><a style="padding: 15px;line-height: 0.428571;" href="https://github.com/Oyamasiphula?tab=repositories">Projects</a></li>
 	      <li>
-    		  <a href="/whyNodejs"><img src="/img/js-javascript-monitor-pc-page-web-dynamic-128.png"></a>
+    		<input style="display: none;" type="radio" name="slide" id="img-1">
+				<input style="display: none;" type="radio" name="slide" id="img-2" checked>
+				<input style="display: none;" type="radio" name="slide" id="img-3">
+<div class="img-container">
+	<div style="display: inline-block;">
+
+  <a href="/whyNodejs"><img name="slide" id="two" style="width: 128px; dssaheight: 123px; margin-top: 9px;" src="/img/js-javascript-monitor-pc-page-web-dynamic-128.png"/>
+  <img id="one" style="width: 128px; dssaheight: 123px; margin-top: 9px;" src="/img/nodejs.jpg"/>
+  <img id="three" style="width: 128px; dssaheight: 123px; margin-top: 9px;" src="/img/StrongLoop_logo-150x150.png"/>
+	</div>
+</div>
+<div class="nav">
+  <label for="img-1"><div id="dot-1" class="radio"></div></label>
+  <label for="img-2"><div id="dot-2" class="radio"></div></label>
+  <label for="img-3"><div id="dot-3" class="radio"></div></label>
+</div>
 		  </li>
-	    <li><a href="/issues">issues</a></li>
-	    <li><a href="/about">About</a></li>
+	    <li><a style="padding: 15px;line-height: 0.428571;" href="/issues">issues</a></li>
+	    <li><a style="padding: 15px;line-height: 0.428571;" href="/about">About</a></li>
 	  </ul>
 	</nav>
 
 		{{{body}}}
-
+		
 </body>
-					
 	<footer >
-	
 	</footer>
-</html>
+
+  <script language="JavaScript">
+var i = 0;
+var path = new Array();
+ 
+// LIST OF IMAGES
+path[0] = "/img/js-javascript-monitor-pc-page-web-dynamic-128.png";
+path[1] = "/img/nodejs.jpg";
+path[2] = "/img/StrongLoop_logo-150x150.png";
+
+function swapImage()
+{
+   document.slide.src = path[i];
+   if(i < path.length - 1) i++; else i = 0;
+   setTimeout("swapImage()",3000);
+}
+window.onload=swapImage;
+</script>
+
+
+ </html>
