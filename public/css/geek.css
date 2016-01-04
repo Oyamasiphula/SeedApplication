@@ -212,3 +212,7 @@ input:checked ~ .radio {color: #FFF;background-color: #000;opacity: 1;
 }
 .nav {width: 120px;margin: inherit;display: inline;
 }
+ #ref {
+    overflow: hidden;
+    display: initial;
+}
