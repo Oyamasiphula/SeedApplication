@@ -1,4 +1,4 @@
-var express = require('express'),	
+var express = require('express'),
 	exphbs = require('express-handlebars'),
 	mysql = require('mysql'),
 	myConnection = require('express-myconnection'),
@@ -10,7 +10,7 @@ var app = express();
 
 var dbOptions = {
       host: 'localhost',
-      user: 'oss_seed_db',
+      user: 'OSS_seed_db',
       password: 'password',
       port: 3306,
       database: 'OS_issues_Logs'
