@@ -66,14 +66,14 @@ INSERT INTO `category_td` (`category_id`, `category`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `issues` (
-  `issue_id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `issue_date` date DEFAULT NULL,
   `category_id` int(11) DEFAULT NULL,
   `subject` varchar(20) NOT NULL,
   `issue_description` varchar(200) NOT NULL,
   `error_message` varchar(500) NOT NULL,
   `Solution` varchar(300) NOT NULL,
-  PRIMARY KEY (`issue_id`),
+  PRIMARY KEY (`id`),
   KEY `category_id` (`category_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `issues` (
 -- Dumping data for table `issues`
 --
 
-INSERT INTO `issues` (`issue_id`, `issue_date`, `category_id`, `subject`, `issue_description`, `error_message`, `Solution`) VALUES
+INSERT INTO `issues` (`id`, `issue_date`, `category_id`, `subject`, `issue_description`, `error_message`, `Solution`) VALUES
 (1, '0000-00-00', 1, 'JavaScript', 'I''m struggling to create a search using jquery', 'error message', 'i forgot to put # tag on the class reference'),
 (2, '0000-00-00', 5, 'Bower package', 'I''m struggling to install npm packages (bower)', 'Could not read from remote repository. Please make sure you have the correct access rights', 'changed package.json file github url link to bower package like'),
 (3, '0000-00-00', 1, 'JavaScript', 'I''m struggling to use post and get method on the index.js file', 'Route.post() requires callback functions but got a [object Undefined]', 'pending'),
