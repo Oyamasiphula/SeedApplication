@@ -8,16 +8,16 @@ exports.getNJsBasicInfo = function(req,res,next){
 
 exports.search = function(req, res, next){
 	req.getConnection(function(error, connection){
-        
+
     var issuesTdPullreq = req.params.query;
     	issuesTdPullreq = "%" + issuesTdPullreq + "%";
 
-		connection.query('SELECT issue_id, issue_date, subject, issue_description, error_message, Solution FROM issues WHERE Solution LIKE ? OR error_message LIKE ?', [issuesTdPullreq,issuesTdPullreq], function(error, results) {
-			if (error) return next(error);
-
+		connection.query('SELECT issues.id, issue_date, subject, issue_description, error_message, Solution FROM issues WHERE Solution LIKE ? OR error_message LIKE ?', [issuesTdPullreq,issuesTdPullreq], function(error, results) {
+			if (error)
+                return next(error);
 		connection.query('SELECT id, category FROM category_td', [issuesTdPullreq], function(err, categoriesResults) {
 				if (error) {
-							return next("Error Searching : %s ", err);
+							   return next("Error Searching : %s ", err);
 
 				}
 
@@ -28,18 +28,18 @@ exports.search = function(req, res, next){
 					});
 				});
 			});
-		});	
-	}; 
-	
+		});
+	};
+
 exports.show = function(req, res, next) {
 	var id = req.params.id;
 	var data = JSON.parse(JSON.stringify(req.body));
 
 	req.getConnection(function(err,connection){
-	connection.query('SELECT issue_id, issue_date, issues.subject, issues.id, category_td.category, issues.issue_description, issues.error_message, issues.Solution FROM issues, category_td WHERE issues.id = category_td.id GROUP BY subject ORDER BY issue_date',[data], function(err,results){
+	connection.query('SELECT issues.id, issues.issue_date, issues.subject, category_td.category, issues.issue_description, issues.error_message, issues.Solution FROM issues, category_td WHERE issues.id = category_td.category_id GROUP BY subject ORDER BY issue_date',[data], function(err,results){
   				if (err)
                 		return next("Error Selecting : %s ",err );
-               	connection.query('SELECT id, category from category_td', [data.id], function(err, categoryList){
+               	connection.query('SELECT category_id, category from category_td', [data.id], function(err, categoryList){
  				if(err)
  					return next("Error Selecting : %s ", err);
  					var issue = results[0];
@@ -63,7 +63,7 @@ exports.show = function(req, res, next) {
 
 exports.add = function (req, res, next) {
 	req.getConnection(function(err, connection){
-	
+
 		var input = JSON.parse(JSON.stringify(req.body));
 
 		var data = {
@@ -86,13 +86,13 @@ exports.add = function (req, res, next) {
 
 exports.showEdit = function (req, res, next) {
 	req.getConnection(function(err, connection){
-		
-		var issue_id = req.params.issue_id;
-    	connection.query('SELECT id, category from category_td', [], function(err, categoryList) {
+
+		var id = req.params.id;
+    	connection.query('SELECT category_id, category from category_td', [], function(err, categoryList) {
         	if (err)
               		return next("Error Selecting : %s ",err );
-         
-         		connection.query('SELECT *  FROM issues WHERE issue_id = ?', [issue_id], function(err, rows){
+
+         		connection.query('SELECT *  FROM issues WHERE issues.id = ?', [id], function(err, rows){
 			if(err)
 					return next("Error Selecting : %s ", err);
 
@@ -106,11 +106,11 @@ exports.showEdit = function (req, res, next) {
 							selected : category.id === issues.id
 						}
 					});
-					res.render('editissue', { 
+					res.render('editissue', {
 						page_title:"Edit Customers - Node.js",
 						issues : issues,
 					 	categories:categories
-					});      
+					});
 				});
       	});
 	});
@@ -119,10 +119,10 @@ exports.showEdit = function (req, res, next) {
 exports.update = function(req, res, next){
 
 	var data = JSON.parse(JSON.stringify(req.body));
-    var issue_id = req.params.issue_id;
+    var id = req.params.id;
 
     req.getConnection(function(err, connection){
-    	connection.query('UPDATE issues SET Solution = ?, id = ? WHERE issue_id = ?', [data.Solution, data.id, issue_id], function(err, rows, fields){
+    	connection.query('UPDATE issues SET Solution = ?, id = ? WHERE issues.id = ?', [data.Solution, data.id], function(err, rows, fields){
     		if (err)
               		return next("Error Updating : %s ",err);
           	res.redirect('/issues');
