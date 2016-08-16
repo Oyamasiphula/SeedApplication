@@ -30,9 +30,10 @@ SET time_zone = "+00:00";
 
 create database OS_issues_Logs;
 
-CREATE USER oss_seed_db@localhost IDENTIFIED BY 'password';
-GRANT ALL PRIVILEGES ON OS_issues_Logs.* TO oss_seed_db@localhost;
+`CREATE USER OSS_seed_db@localhost IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON OS_issues_Logs.* TO OSS_seed_db@localhost;
 flush privileges;
+`
 
 -- --------------------------------------------------------
 
