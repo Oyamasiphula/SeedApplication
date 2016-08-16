@@ -36,8 +36,8 @@ app.get("/", issues.getHome)
 app.get('/issues', issues.show);
 app.get('/issues/search/:query', issues.search);
 app.post('/issues/add', issues.add);
-app.get('/issues/edit/:issue_id', issues.showEdit);
-app.post('/issues/update/:issue_id', issues.update);
+app.get('/issues/edit/:id', issues.showEdit);
+app.post('/issues/update/:id', issues.update);
 app.get("/whyNodejs", issues.getNJsBasicInfo);
 app.get('/about', issues.about)
 
