@@ -122,7 +122,7 @@ exports.update = function(req, res, next){
     var id = req.params.id;
 
     req.getConnection(function(err, connection){
-    	connection.query('UPDATE issues SET Solution = ?, id = ? WHERE issues.id = ?', [data.Solution, data.id], function(err, rows, fields){
+    	connection.query('UPDATE Suppliers_td SET ? WHERE id = ?', [ data.id, data.Solution, id], function(err, rows, fields){
     		if (err)
               		return next("Error Updating : %s ",err);
           	res.redirect('/issues');
