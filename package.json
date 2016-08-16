@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/Oyamasiphula/SeedApplication",
   "devDependencies": {
-    "mocha": "^2.3.4"
+    "mocha": "^2.3.4",
+    "bower": "~1.7.9"
   }
 }
