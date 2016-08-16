@@ -1,20 +1,20 @@
   <h1 class="description">
     Kata KiT</br>
   Take care of all the errors and learn from them
-  </h1>  
+  </h1>
 <div class="box">
 <label for="pullCatNameReq">Search</label>
   <div class="container-1">
     <span class="icon"><i class="fa fa-search fa-2x"></i></span>
-    <input type="search" id="search" name="Solution" placeholder="  error message match" />  
+    <input type="search" id="search" name="Solution" placeholder="  error message match" />
   </div>
 </div>
   <div class="row">
     <table class="table-2" id="reqIssuesOutPut">
   <thead>
     <th>Issue Date</th>
-    <th>Category Specification</th>    
-    <th>subject</th>    
+    <th>Category Specification</th>
+    <th>subject</th>
     <th>Description</th>
     <th>Error Message</th>
     <th>Solution</th>
@@ -23,14 +23,14 @@
     {{#results}}
     <tr>
       <td>{{issue_date}}</td>
-      <td>{{category}}</td>      
-      <td>{{subject}}</td>      
+      <td>{{category}}</td>
+      <td>{{subject}}</td>
       <td>{{issue_description}}</td>
       <td>{{error_message}}</td>
       <td>{{Solution}}
-      <button type="button" class="btn btn-success" onClick="location.href='/issues/edit/{{issue_id}}'"><i class="fa fa-edit"></i> Edit</button>
+      <button type="button" class="btn btn-success" onClick="location.href='/issues/edit/{{id}}'"><i class="fa fa-edit"></i> Edit</button>
     </td>
-    
+
     </tr>
      {{/results}}
   </tbody>
@@ -42,13 +42,13 @@
   <input type="hidden" name="now()" value="{{issue_date}}" class="description" />
     <!-- [[dropdown]] -->
         <div class="dropdown-button">
-        <p>Choose a Category</p> 
+        <p>Choose a Category</p>
           <select name="id" class="description">
             {{#categories}}
             <option value = "{{id}}">{{category}}</option>
             {{/categories}}
-          </select> 
-        </div> 
+          </select>
+        </div>
   <input name="subject" value="{{subject}}" placeholder="subject:" class="description" type="text" required />
 
   <input name="issue_description" value="{{issue_description}}" placeholder="description of my problem" class="description" type="text" required />
