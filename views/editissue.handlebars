@@ -1,10 +1,10 @@
 <h1>Edit</h1>
 {{#issues}}
-<form action="/issues/update/{{issue_id}}" method="POST">
+<form action="/issues/update/{{id}}" method="POST">
 	<div class="row">
 	<h4>Modifify Your Solution</h4> :
 	<textarea rows="5" cols="50" name="Solution" value = "{{Solution}}" class="description" required>{{Solution}}</textarea>
-	<p>Current Category : {{id}}</p>
+	<p>Current Category : {{category_id}}</p>
 {{/issues}}
 
 <div class="drpdownRow">
@@ -19,7 +19,7 @@
                   {{/selected}}
             {{/categories}}
             </select>
-            </div>   
+            </div>
 	<button name="submit" type="submit" class="btn btn-info" style="float:left" >Submit</button>
 	</div>
 </form>
